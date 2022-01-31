@@ -38,12 +38,11 @@ int	press_esc(int key, t_data *data)
 	return (0);
 }
 
-void	put_sprites(t_data *data, char *map)
+void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara_y)
 {
 	int	i;
 	int	x;
 	int	y;
-	// void	*img;
 
 	i = 0;
 	x = -31;
@@ -69,13 +68,19 @@ void	put_sprites(t_data *data, char *map)
 			x = -31;
 			y += SPRITE_SIZE;
 		}
-		else if (map[i] == 'C')
+		else if (map[i] == 'C') //
 		{
 			data->present.position_x = x;
 			data->present.position_x += SPRITE_SIZE;
 			data->present.position_y = y;
 			x = data->present.position_x;
 			y = data->present.position_y;
+			if (x == current_chara_x && y == current_chara_y)
+			{
+				map[i] = '0';
+				i++;
+				continue ;
+			}
 			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->present.img,
 				data->present.position_x, data->present.position_y);
 		}
@@ -86,6 +91,10 @@ void	put_sprites(t_data *data, char *map)
 			data->boat.position_y = y;
 			x = data->boat.position_x;
 			y = data->boat.position_y;
+			if (x == current_chara_x && y == current_chara_y)
+			{
+				exit(EXIT_SUCCESS);
+			}
 			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->boat.img,
 				data->boat.position_x, data->boat.position_y);
 		}
@@ -110,7 +119,7 @@ void	put_sprites(t_data *data, char *map)
 	printf("--------------------------------------\n");
 }
 
-int	display_sprites(t_data *data)
+int	display_sprites(t_data *data, int x, int y)
 {
 	// printf("count; %d\n", data->count);
 	// printf("map; %s\n", data->map);
@@ -118,7 +127,7 @@ int	display_sprites(t_data *data)
 	// if (data->count == 100)
 	// {
 	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->tail.img, 0, 0);
-	put_sprites(data, data->map);
+	put_sprites(data, data->map, x, y);
 	// mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->character.img,
 	// 	data->character.position_x, data->character.position_y);
 		// data->count = 0;
@@ -180,7 +189,7 @@ int	press_key(int key, t_data *data)
 	x = data->character.position_x;
 	y = data->character.position_y;
 	// mlx_clear_window(data->mlx, data->window.mlx_win);
-	display_sprites(data);
+	display_sprites(data, x, y);
 	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->character.img,
 				x, y);
 	data->character.position_x = x;
@@ -266,7 +275,7 @@ int	main(int argc, char **argv)
 	data.boat.img = mlx_xpm_file_to_image(data.mlx, boat_path,
 		&data.boat.size_x, &data.boat.size_y);
 	
-	display_sprites(&data);
+	display_sprites(&data, 0, 0);
 	mlx_hook(data.window.mlx_win, 17, 0, close_window, 0);
 	mlx_key_hook(data.window.mlx_win, press_key, &data);
 	// mlx_sync(2, data.mlx_win);
