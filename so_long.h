@@ -50,8 +50,11 @@ typedef struct s_data{
 	t_map	map;
 }               t_data;
 
-// void	init_struct(t_data *data);
 void    exit_program(void);
 void    is_valid_argv(int argc, char **argv);
+void	read_map(char **argv, char **map);
+void	count_img_num_on_xy_axis(t_map *map);
+void	convert_xpm_to_image(t_data *data);
+void	init_struct(t_data *data, char **argv);
 
 #endif
