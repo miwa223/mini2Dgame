@@ -5,85 +5,10 @@ int	close_window(void)
 	exit(EXIT_SUCCESS);
 }
 
-// void	check_exit(t_data *data, char map, int current_chara_x, int current_chara_y)
-// {
-// 	if (map == EXIT)
-// 	{
-// 		if (x == current_chara_x && y == current_chara_y)
-// 			exit(EXIT_SUCCESS);
-// 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
-// 			x, y);
-// 	}
-// }
-
-bool	check_newline(t_data *data, int *x, int *y, int *i)
-{
-	if (data.map.cotent[*i] == '\n')
-	{
-		*x = 0;
-		*y += SPRITE_SIZE;
-		*i++;
-		return (true);
-	}
-	return (false);
-}
-
-void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara_y)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	x = 0;
-	y = 0;
-	i = 0;
-	while (map[i] != '\0')
-	{
-		if (check_newline(data, &x, &y, &i))
-			continue ;
-		// if (map[i] == '\n')
-		// {
-		// 	x = 0;
-		// 	y += SPRITE_SIZE;
-		// 	i++;
-		// 	continue ;
-		// }
-		if (map[i] == WALL)
-			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->wall_img, x, y);
-		else if (map[i] == COLLECTIBLE)
-		{
-			if (x == current_chara_x && y == current_chara_y)
-			{
-				map[i] = '0';
-				i++;
-				x += 31;
-				continue ;
-			}
-			mlx_put_image_to_window(data->mlx, data->mlx_win, data->collect_img,
-				x, y);
-		}
-		else if (map[i] == EXIT)
-		{
-			if (x == current_chara_x && y == current_chara_y)
-				exit(EXIT_SUCCESS);
-			mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
-				x, y);
-		}
-		else if (map[i] == START_POSITION)
-		{
-			data->player.pos.x = x;
-			data->player.pos.y = y;
-		}
-		x += 31;
-		i++;
-	}
-}
-
-int	display_sprites(t_data *data, int x, int y)
+int	display_images(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tail_img, 0, 0);
-	put_sprites(data, data->map.content, x, y);
+	put_sprites(data);
 	return (0);
 }
 
@@ -132,11 +57,6 @@ bool	move_to_wall(t_data *data, int key)
 
 int	press_key(int key, t_data *data)
 {
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
 	if (key == ESC)
 		exit(EXIT_SUCCESS);
 	if (key == A)
@@ -176,13 +96,9 @@ int	press_key(int key, t_data *data)
 		data->player.move_count += 1;
 		printf("The current number of movements: %d\n", data->player.move_count);
 	}
-	x = data->player.pos.x;
-	y = data->player.pos.y;
 	// mlx_clear_window(data->mlx, data->window.mlx_win);
-	display_sprites(data, x, y);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->player.img, x, y);
-	data->player.pos.x = x;
-	data->player.pos.y = y;
+	display_images(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->player.img, data->player.pos.x, data->player.pos.y);
 	return (0);
 }
 
@@ -192,7 +108,7 @@ int	main(int argc, char **argv)
 
 	is_valid_argv(argc, argv);
 	init_struct(&data, argv);
-	display_sprites(&data, 0, 0); //これ不要かも
+	display_images(&data); //これ不要かも
 	mlx_hook(data.mlx_win, 17, 0, close_window, 0);
 	mlx_key_hook(data.mlx_win, press_key, &data);
 	mlx_loop(data.mlx);

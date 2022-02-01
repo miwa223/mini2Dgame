@@ -57,4 +57,10 @@ void	count_img_num_on_xy_axis(t_map *map);
 void	convert_xpm_to_image(t_data *data);
 void	init_struct(t_data *data, char **argv);
 
+bool	is_newline(t_data *data, int *x, int *y, int *i);
+bool	is_collectible_with_player(t_data *data, int *x, int y, int *i);
+void	is_exit(t_data *data, int x, int y, int i);
+void	is_start_position(t_data *data, int x, int y, int i);
+void	put_sprites(t_data *data);
+
 #endif
