@@ -122,7 +122,7 @@ int	press_key(int key, t_data *data)
 	}
 	else if (key == S)
 	{
-		if (data->player.pos_y == data->player.size.y * 2) //y_count - 1 = 2
+		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 1 = 2
 			return (0);
 		data->player.pos_y += data->player.size.y;
 		printf("S x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
@@ -132,7 +132,7 @@ int	press_key(int key, t_data *data)
 		printf("chara_pos; %d\n", data->player.pos_x);
 		printf("win; %d\n", data->window.size.x);
 		printf("chara_size; %d\n", data->player.size.x);
-		if (data->player.pos_x == data->player.size.x * 7) //x_count - 2 = 7
+		if (data->player.pos_x == data->player.size.x * (data->map.size.x - 2)) //x_count - 2 = 7
 			return (0);
 		data->player.pos_x += data->player.size.x;
 		printf("D x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
@@ -243,6 +243,8 @@ int	main(int argc, char **argv)
 	calc_newline(map, &y_count, &x_count);
 	init_struct(&data, y_count, x_count);
 	data.map.content = map;
+	data.map.size.x = x_count;
+	data.map.size.y = y_count;
 	data.window.mlx_win = mlx_new_window(data.mlx, data.window.size.x, data.window.size.y, "so_long");
 	convert_xpm_to_image(&data);
 	display_sprites(&data, 0, 0);
