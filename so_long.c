@@ -28,65 +28,48 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 	int	y;
 
 	i = 0;
-	x = -31;
+	x = 0;
 	y = 0;
 	while (map[i] != '\0')
 	{
+		if (map[i] == '\n')
+		{
+			x = 0;
+			y += SPRITE_SIZE;
+			i++;
+			continue ;
+		}
 		if (map[i] == WALL)
 		{
-			data->wall.pos_x = x;
-			data->wall.pos_x += SPRITE_SIZE;
-			data->wall.pos_y = y;
-			x = data->wall.pos_x;
-			y = data->wall.pos_y;
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->wall.img,
-				data->wall.pos_x, data->wall.pos_y);
-		}
-		else if (map[i] == '\n')
-		{
-			x = -31;
-			y += SPRITE_SIZE;
+			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->wall.img, x, y);
 		}
 		else if (map[i] == COLLECTIBLE)
 		{
-			data->collect.pos_x = x;
-			data->collect.pos_x += SPRITE_SIZE;
-			data->collect.pos_y = y;
-			x = data->collect.pos_x;
-			y = data->collect.pos_y;
 			if (x == current_chara_x && y == current_chara_y)
 			{
 				map[i] = '0';
 				i++;
+				x += 31;
 				continue ;
 			}
 			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->collect.img,
-				data->collect.pos_x, data->collect.pos_y);
+				x, y);
 		}
 		else if (map[i] == EXIT)
 		{
-			data->exit.pos_x = x;
-			data->exit.pos_x += SPRITE_SIZE;
-			data->exit.pos_y = y;
-			x = data->exit.pos_x;
-			y = data->exit.pos_y;
 			if (x == current_chara_x && y == current_chara_y)
 			{
 				exit(EXIT_SUCCESS);
 			}
 			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->exit.img,
-				data->exit.pos_x, data->exit.pos_y);
+				x, y);
 		}
 		else if (map[i] == START_POSITION)
 		{
 			data->player.pos_x = x;
-			data->player.pos_x += SPRITE_SIZE;
 			data->player.pos_y = y;
-			x = data->player.pos_x;
-			y = data->player.pos_y;
 		}
-		else
-			x += 31;
+		x += 31;
 		i++;
 	}
 	printf("--------------------------------------\n");
