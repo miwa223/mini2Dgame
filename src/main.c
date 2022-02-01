@@ -1,4 +1,4 @@
-#include "inc/so_long.h"
+#include "../inc/so_long.h"
 
 int	close_window(void)
 {

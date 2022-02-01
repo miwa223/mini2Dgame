@@ -30,25 +30,25 @@
 - [x] try different map first to see if it works
 - [x] git commit
 - [x] deal with next to wall case -17:30
-- [ ] refactoring on macOS to do faster
+- [x] refactoring on macOS to do faster
     - [x] reconstruct struct -18:30
     - [x] rename func and variables -20:30
     - [x] file components (1hr: create directory) -21:30
     - [x] norm a little -22:30
+
+2/2W
+- [ ] param validation 9:30-10:30
 - [ ] window management(change to another window, minimizing) ask someone
-- [ ] deal with tail size -23:30
+- [ ] deal with tail size 10:30-12:00
 - [ ] error handling (use strerror/perror)
-    - [ ] map -26:00
+    - [ ] map 12:30-15:00
         - [ ] number of each sprite
         - [ ] surrounded walls
         - [ ] rectangular
         - [ ] wall, collectible, free space (anything else are error)
         - [ ] 1 exit(E), 1 collectible(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
-
-2/2W
-    - [ ] params 10:00-11:00
-    - [ ] mlx's return 11:00-12:00
-- [ ] memory leaks (free mlx instance?) 13:00-14:00
-- [ ] change wall splite 14:00-14:30
-- [ ] norm 14:30-15:30
-- [ ] submittion 16:30
+    - [ ] mlx's return 15:00-16:00
+- [ ] memory leaks (free mlx instance?) 16:00-17:00
+- [ ] change wall splite 17:00-17:30
+- [ ] norm 17:30-18:30
+- [ ] submittion 20:30
