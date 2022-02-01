@@ -179,68 +179,52 @@ void	read_map(char **argv, char **map)
 	close(fd);
 }
 
-void	calc_newline(char *map, t_data *data)
+void	count_img_num_on_xy_axis(t_map *map)
 {
 	int	i;
-	int	flag;
+	bool	counted;
 
 	i = 0;
-	flag = 0;
-	data->map.img_num.y = 0;
-	while (map[i] != '\0')
+	counted = false;
+	map->img_num.y = 0;
+	while (map->content[i] != '\0')
 	{
-		if (map[i] == '\n')
+		if (map->content[i] == '\n')
 		{
-			if (flag == 0)
+			if (!counted)
 			{
-				data->map.img_num.x = i;
-				flag = 1;
+				map->img_num.x = i;
+				counted = true;
 			}
-			data->map.img_num.y += 1;
+			map->img_num.y += 1;
 		}
 		i++;
 	}
-	data->map.img_num.y += 1;
+	map->img_num.y += 1;
 }
 
 void	convert_xpm_to_image(t_data *data)
 {
-	char	*player_path;
-	char	*wall_path;
-	char	*tail_path;
-	char	*collect_path;
-	char	*exit_path;
-
-	player_path = "images/player.xpm";
-	wall_path = "images/wall.xpm";
-	tail_path = "images/tail.xpm";
-	collect_path = "images/collectible.xpm";
-	exit_path = "images/exit.xpm";
-	data->tail_img = mlx_xpm_file_to_image(data->mlx, tail_path,
-		&data->img_size.x, &data->img_size.y);
-	data->player.img = mlx_xpm_file_to_image(data->mlx, player_path,
-		&data->img_size.x, &data->img_size.y);
-	data->wall_img = mlx_xpm_file_to_image(data->mlx, wall_path,
-		&data->img_size.x, &data->img_size.y);
-	data->collect_img = mlx_xpm_file_to_image(data->mlx, collect_path,
-		&data->img_size.x, &data->img_size.y);
-	data->exit_img = mlx_xpm_file_to_image(data->mlx, exit_path,
-		&data->img_size.x, &data->img_size.y);
+	data->tail_img = mlx_xpm_file_to_image(data->mlx,
+	"images/tail.xpm", &data->img_size.x, &data->img_size.y);
+	data->wall_img = mlx_xpm_file_to_image(data->mlx,
+	"images/wall.xpm", &data->img_size.x, &data->img_size.y);
+	data->collect_img = mlx_xpm_file_to_image(data->mlx,
+	"images/collectible.xpm", &data->img_size.x, &data->img_size.y);
+	data->exit_img = mlx_xpm_file_to_image(data->mlx,
+	"images/exit.xpm", &data->img_size.x, &data->img_size.y);
+	data->player.img = mlx_xpm_file_to_image(data->mlx,
+	"images/player.xpm", &data->img_size.x, &data->img_size.y);
 }
 
-void	init_struct(t_data *data)
+void	init_struct(t_data *data, char **argv)
 {
-    char	*map;
-
-	read_map(argv, &map);
-	calc_newline(map, data);
-
 	data->mlx = mlx_init();
 	data->player.pos.x = 0;
 	data->player.pos.y = 0;
 	data->player.move_count = 0;
-
-	data->map.content = map;
+	read_map(argv, &data->map.content);
+	count_img_num_on_xy_axis(&data->map);
 	data->mlx_win = mlx_new_window(data->mlx, data->map.img_num.x * 31,
 		data->map.img_num.y * 31, "so_long");
 	convert_xpm_to_image(data);
@@ -251,20 +235,10 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	is_valid_argv(argc, argv);
-	//init_structに構造体メンバの初期化をまとめたい
-	// read_map(argv, &map);
-	// calc_newline(map, &data);
-	init_struct(&data);
-	// data.map.content = map;
-	// data.mlx_win = mlx_new_window(data.mlx, data.map.img_num.x * 31,
-	// 	data.map.img_num.y * 31, "so_long");
-	// convert_xpm_to_image(&data);
-	// ここから描画が始まる
+	init_struct(&data, argv);
 	display_sprites(&data, 0, 0);
 	mlx_hook(data.mlx_win, 17, 0, close_window, 0);
 	mlx_key_hook(data.mlx_win, press_key, &data);
-	// mlx_sync(2, data.mlx_win);
-	// mlx_loop_hook(data.mlx, display_sprites, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
