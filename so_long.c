@@ -1,13 +1,5 @@
 #include "so_long.h"
 
-void	init_struct(t_data *data)
-{
-	data->mlx = mlx_init();
-	data->player.pos.x = 0;
-	data->player.pos.y = 0;
-	data->player.move_count = 0;
-}
-
 int	close_window(void)
 {
 	exit(EXIT_SUCCESS);
@@ -236,19 +228,38 @@ void	convert_xpm_to_image(t_data *data)
 		&data->img_size.x, &data->img_size.y);
 }
 
+void	init_struct(t_data *data)
+{
+    char	*map;
+
+	read_map(argv, &map);
+	calc_newline(map, data);
+
+	data->mlx = mlx_init();
+	data->player.pos.x = 0;
+	data->player.pos.y = 0;
+	data->player.move_count = 0;
+
+	data->map.content = map;
+	data->mlx_win = mlx_new_window(data->mlx, data->map.img_num.x * 31,
+		data->map.img_num.y * 31, "so_long");
+	convert_xpm_to_image(data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
-    char    *map;
 
 	is_valid_argv(argc, argv);
-	read_map(argv, &map);
-	calc_newline(map, &data);
+	//init_structに構造体メンバの初期化をまとめたい
+	// read_map(argv, &map);
+	// calc_newline(map, &data);
 	init_struct(&data);
-	data.map.content = map;
-	data.mlx_win = mlx_new_window(data.mlx, data.map.img_num.x * 31,
-		data.map.img_num.y * 31, "so_long");
-	convert_xpm_to_image(&data);
+	// data.map.content = map;
+	// data.mlx_win = mlx_new_window(data.mlx, data.map.img_num.x * 31,
+	// 	data.map.img_num.y * 31, "so_long");
+	// convert_xpm_to_image(&data);
+	// ここから描画が始まる
 	display_sprites(&data, 0, 0);
 	mlx_hook(data.mlx_win, 17, 0, close_window, 0);
 	mlx_key_hook(data.mlx_win, press_key, &data);

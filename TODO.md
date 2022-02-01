@@ -31,7 +31,7 @@
 - [x] git commit
 - [x] deal with next to wall case -17:30
 - [ ] refactoring on macOS to do faster
-    - [ ] reconstruct struct -18:30
+    - [x] reconstruct struct -18:30
     - [ ] rename func and variables -20:30
     - [ ] file components (1hr: create directory) -21:30
     - [ ] norm a little -22:30
