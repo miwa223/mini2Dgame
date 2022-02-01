@@ -1,7 +1,8 @@
 NAME = so_long
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -g
-SRCS = so_long.c init_struct.c press_key.c put_sprites.c validation.c get_next_line.c
+SRCS = main.c src/init_struct.c src/press_key.c src/put_sprites.c \
+		src/validation.c src/get_next_line.c
 OBJS = $(SRCS:%.c=%.o)
 
 LIBFT_DIR = libft/

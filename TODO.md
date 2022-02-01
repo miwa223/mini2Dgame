@@ -32,9 +32,9 @@
 - [x] deal with next to wall case -17:30
 - [ ] refactoring on macOS to do faster
     - [x] reconstruct struct -18:30
-    - [ ] rename func and variables -20:30
+    - [x] rename func and variables -20:30
     - [ ] file components (1hr: create directory) -21:30
-    - [ ] norm a little -22:30
+    - [x] norm a little -22:30
 - [ ] window management(change to another window, minimizing) ask someone
 - [ ] deal with tail size -23:30
 - [ ] error handling (use strerror/perror)
@@ -46,8 +46,8 @@
         - [ ] 1 exit(E), 1 collectible(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
 
 2/2W
-        - [ ] params 10:00-11:00
-        - [ ] mlx's return 11:00-12:00
+    - [ ] params 10:00-11:00
+    - [ ] mlx's return 11:00-12:00
 - [ ] memory leaks (free mlx instance?) 13:00-14:00
 - [ ] change wall splite 14:00-14:30
 - [ ] norm 14:30-15:30

@@ -6,8 +6,8 @@
 # include <limits.h>
 # include <stdio.h>
 # include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "mlx/mlx_int.h"
+# include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
 # include "get_next_line.h"
 
 # define WALL '1'

@@ -50,7 +50,7 @@ int	press_key(int key, t_data *data)
 	if (key == ESC)
 		exit(EXIT_SUCCESS);
 	if ((key == A || key == S || key == D || key == W)
-        && move_to_wall(data, key))
+		&& move_to_wall(data, key))
 		return (0);
 	if (key == A)
 		data->player.pos.x -= data->img_size.x;
