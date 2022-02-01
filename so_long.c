@@ -47,7 +47,7 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 			x = -31;
 			y += SPRITE_SIZE;
 		}
-		else if (map[i] == COLLECTIBLE) //
+		else if (map[i] == COLLECTIBLE)
 		{
 			data->collect.pos_x = x;
 			data->collect.pos_x += SPRITE_SIZE;
@@ -87,8 +87,6 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 		}
 		else
 			x += 31;
-		// printf("x; %d\n", x);
-		// printf("y; %d\n", y);
 		i++;
 	}
 	printf("--------------------------------------\n");
@@ -101,48 +99,66 @@ int	display_sprites(t_data *data, int x, int y)
 	return (0);
 }
 
-//for esc key and main player's move
 int	press_key(int key, t_data *data)
 {
 	int x;
 	int y;
+	int	i;
+	int	map_x;
+	int	map_y;
 
 	x = 0;
 	y = 0;
+	i = 0;
+	map_x = 0;
+	map_y = 0;
 	if (key == ESC)
 		exit(EXIT_SUCCESS);
+	//wallにぶつかる判定がtrueの場合、returnする（必要な情報：player.pos_x, player.pos_y, wall's position)
+	//wall's positionの求め方(関数作るといいかも)
+	// 現在のplayerの座標を元に動く方向＋31の位置にwallがあるかチェック
+	// このチェックは、data.map.content[0]〜最初の改行までx+31, 改行見つかったらy+=31, x=0に設定してループする
+	// で、player+31の座標と一致したらreturn
 	if (key == A)
 	{
 		if (data->player.pos_x == data->player.size.x)
-		{
-			printf("A\n");
 			return (0);
+		while (data->map.content[i] != '\0')
+		{
+			if (data->map.content[i] == '\n')
+			{
+				map_x = 0;
+				map_y += 31;
+				i++;
+				continue ;
+			}
+			if (data->map.content[i] == WALL && map_y == data->player.pos_y
+				&& map_x == data->player.pos_x - data->player.size.x)
+			{
+				return (0);
+			}
+			map_x += 31;
+			i++;
 		}
 		data->player.pos_x -= data->player.size.x;
 	}
 	else if (key == S)
 	{
-		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 1 = 2
+		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 2 = 2
 			return (0);
 		data->player.pos_y += data->player.size.y;
-		printf("S x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	else if (key == D)
 	{
-		printf("chara_pos; %d\n", data->player.pos_x);
-		printf("win; %d\n", data->window.size.x);
-		printf("chara_size; %d\n", data->player.size.x);
 		if (data->player.pos_x == data->player.size.x * (data->map.size.x - 2)) //x_count - 2 = 7
 			return (0);
 		data->player.pos_x += data->player.size.x;
-		printf("D x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	else if (key == W)
 	{
 		if (data->player.pos_y == data->player.size.y)
 			return (0);
 		data->player.pos_y -= data->player.size.y;
-		printf("W x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	if (key == A || key == S || key == D || key == W)
 	{
@@ -153,8 +169,7 @@ int	press_key(int key, t_data *data)
 	y = data->player.pos_y;
 	// mlx_clear_window(data->mlx, data->window.mlx_win);
 	display_sprites(data, x, y);
-	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->player.img,
-				x, y);
+	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->player.img, x, y);
 	data->player.pos_x = x;
 	data->player.pos_y = y;
 	return (0);
