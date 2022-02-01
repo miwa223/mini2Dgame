@@ -212,8 +212,24 @@ void	calc_newline(char *map, int *newline_count, int *x_count)
 }
 
 void	convert_xpm_to_image(t_data *data)
-{}
+{
+	char	*character_path = "images/character.xpm";
+	char	*wall_path = "images/wall.xpm";
+	char	*tail_path = "images/tail.xpm";
+	char	*present_path = "images/present.xpm";
+	char	*boat_path = "images/boat.xpm";
 
+	data->tail.img = mlx_xpm_file_to_image(data->mlx, tail_path,
+		&data->window.size.x, &data->window.size.y);
+	data->character.img = mlx_xpm_file_to_image(data->mlx, character_path,
+		&data->character.size.x, &data->character.size.y);
+	data->wall.img = mlx_xpm_file_to_image(data->mlx, wall_path,
+		&data->wall.size.x, &data->wall.size.y);
+	data->present.img = mlx_xpm_file_to_image(data->mlx, present_path,
+		&data->present.size.x, &data->present.size.y);
+	data->boat.img = mlx_xpm_file_to_image(data->mlx, boat_path,
+		&data->boat.size.x, &data->boat.size.y);
+}
 
 int	main(int argc, char **argv)
 {
@@ -221,12 +237,6 @@ int	main(int argc, char **argv)
 	int	newline_count;
 	int	x_count;
     char    *map;
-	char	*character_path = "images/character.xpm";
-	char	*wall_path = "images/Wall.xpm";
-	char	*tail_path = "images/solidcolor.xpm";
-	char	*present_path = "images/present.xpm";
-	char	*boat_path = "images/boat.xpm";
-
 
 	is_valid_argv(argc, argv);
 	read_map(argv, &map);
@@ -235,17 +245,7 @@ int	main(int argc, char **argv)
 	data.map = map;
 
 	data.window.mlx_win = mlx_new_window(data.mlx, data.window.size.x, data.window.size.y, "so_long");
-	data.tail.img = mlx_xpm_file_to_image(data.mlx, tail_path,
-		&data.window.size.x, &data.window.size.y);
-	data.character.img = mlx_xpm_file_to_image(data.mlx, character_path,
-		&data.character.size.x, &data.character.size.y);
-	data.wall.img = mlx_xpm_file_to_image(data.mlx, wall_path,
-		&data.wall.size.x, &data.wall.size.y);
-	data.present.img = mlx_xpm_file_to_image(data.mlx, present_path,
-		&data.present.size.x, &data.present.size.y);
-	data.boat.img = mlx_xpm_file_to_image(data.mlx, boat_path,
-		&data.boat.size.x, &data.boat.size.y);
-
+	convert_xpm_to_image(&data);
 	display_sprites(&data, 0, 0);
 	mlx_hook(data.window.mlx_win, 17, 0, close_window, 0);
 	mlx_key_hook(data.window.mlx_win, press_key, &data);
