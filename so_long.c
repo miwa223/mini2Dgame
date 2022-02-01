@@ -144,39 +144,19 @@ int	press_key(int key, t_data *data)
 	y = 0;
 	if (key == ESC)
 		exit(EXIT_SUCCESS);
-	//wallにぶつかる判定がtrueの場合、returnする（必要な情報：player.pos_x, player.pos_y, wall's position)
-	//wall's positionの求め方(関数作るといいかも)
-	// 現在のplayerの座標を元に動く方向＋31の位置にwallがあるかチェック
-	// このチェックは、data.map.content[0]〜最初の改行までx+31, 改行見つかったらy+=31, x=0に設定してループする
-	// で、player+31の座標と一致したらreturn
 	if (key == A)
 	{
 		if (data->player.pos_x == data->player.size.x)
 			return (0);
-		if (move_to_wall(data, A) == true)
+		if (move_to_wall(data, A))
 			return (0);
-		// while (data->map.content[i] != '\0')
-		// {
-		// 	if (data->map.content[i] == '\n')
-		// 	{
-		// 		map_x = 0;
-		// 		map_y += 31;
-		// 		i++;
-		// 		continue ;
-		// 	}
-		// 	if (data->map.content[i] == WALL && map_y == data->player.pos_y
-		// 		&& map_x == data->player.pos_x - data->player.size.x)
-		// 		return (0);
-		// 	map_x += 31;
-		// 	i++;
-		// }
 		data->player.pos_x -= data->player.size.x;
 	}
 	else if (key == S)
 	{
 		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 2 = 2
 			return (0);
-		if (move_to_wall(data, S) == true)
+		if (move_to_wall(data, S))
 			return (0);
 		data->player.pos_y += data->player.size.y;
 	}
@@ -184,7 +164,7 @@ int	press_key(int key, t_data *data)
 	{
 		if (data->player.pos_x == data->player.size.x * (data->map.size.x - 2)) //x_count - 2 = 7
 			return (0);
-		if (move_to_wall(data, D) == true)
+		if (move_to_wall(data, D))
 			return (0);
 		data->player.pos_x += data->player.size.x;
 	}
@@ -192,7 +172,7 @@ int	press_key(int key, t_data *data)
 	{
 		if (data->player.pos_y == data->player.size.y)
 			return (0);
-		if (move_to_wall(data, W) == true)
+		if (move_to_wall(data, W))
 			return (0);
 		data->player.pos_y -= data->player.size.y;
 	}
