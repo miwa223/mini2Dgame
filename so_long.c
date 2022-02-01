@@ -99,19 +99,49 @@ int	display_sprites(t_data *data, int x, int y)
 	return (0);
 }
 
-int	press_key(int key, t_data *data)
+bool	move_to_wall(t_data *data, int key)
 {
-	int x;
-	int y;
 	int	i;
 	int	map_x;
 	int	map_y;
 
-	x = 0;
-	y = 0;
 	i = 0;
 	map_x = 0;
 	map_y = 0;
+	while (data->map.content[i] != '\0')
+	{
+		if (data->map.content[i] == '\n')
+		{
+			map_x = 0;
+			map_y += 31;
+			i++;
+			continue ;
+		}
+		if (key == A && data->map.content[i] == WALL && map_y == data->player.pos_y
+			&& map_x == data->player.pos_x - data->player.size.x)
+			return (true);
+		else if (key == S && data->map.content[i] == WALL && map_x == data->player.pos_x
+			&& map_y == data->player.pos_y + data->player.size.y)
+			return (true);
+		else if (key == D && data->map.content[i] == WALL && map_y == data->player.pos_y
+			&& map_x == data->player.pos_x + data->player.size.x)
+			return (true);
+		else if (key == W && data->map.content[i] == WALL && map_x == data->player.pos_x
+			&& map_y == data->player.pos_y - data->player.size.y)
+			return (true);
+		map_x += 31;
+		i++;
+	}
+	return (false);
+}
+
+int	press_key(int key, t_data *data)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
 	if (key == ESC)
 		exit(EXIT_SUCCESS);
 	//wallにぶつかる判定がtrueの場合、returnする（必要な情報：player.pos_x, player.pos_y, wall's position)
@@ -123,28 +153,30 @@ int	press_key(int key, t_data *data)
 	{
 		if (data->player.pos_x == data->player.size.x)
 			return (0);
-		while (data->map.content[i] != '\0')
-		{
-			if (data->map.content[i] == '\n')
-			{
-				map_x = 0;
-				map_y += 31;
-				i++;
-				continue ;
-			}
-			if (data->map.content[i] == WALL && map_y == data->player.pos_y
-				&& map_x == data->player.pos_x - data->player.size.x)
-			{
-				return (0);
-			}
-			map_x += 31;
-			i++;
-		}
+		if (move_to_wall(data, A) == true)
+			return (0);
+		// while (data->map.content[i] != '\0')
+		// {
+		// 	if (data->map.content[i] == '\n')
+		// 	{
+		// 		map_x = 0;
+		// 		map_y += 31;
+		// 		i++;
+		// 		continue ;
+		// 	}
+		// 	if (data->map.content[i] == WALL && map_y == data->player.pos_y
+		// 		&& map_x == data->player.pos_x - data->player.size.x)
+		// 		return (0);
+		// 	map_x += 31;
+		// 	i++;
+		// }
 		data->player.pos_x -= data->player.size.x;
 	}
 	else if (key == S)
 	{
 		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 2 = 2
+			return (0);
+		if (move_to_wall(data, S) == true)
 			return (0);
 		data->player.pos_y += data->player.size.y;
 	}
@@ -152,11 +184,15 @@ int	press_key(int key, t_data *data)
 	{
 		if (data->player.pos_x == data->player.size.x * (data->map.size.x - 2)) //x_count - 2 = 7
 			return (0);
+		if (move_to_wall(data, D) == true)
+			return (0);
 		data->player.pos_x += data->player.size.x;
 	}
 	else if (key == W)
 	{
 		if (data->player.pos_y == data->player.size.y)
+			return (0);
+		if (move_to_wall(data, W) == true)
 			return (0);
 		data->player.pos_y -= data->player.size.y;
 	}
