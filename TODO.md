@@ -29,7 +29,7 @@
 2/1T
 - [x] try different map first to see if it works
 - [x] git commit
-- [ ] deal with next to wall case -17:30
+- [w] deal with next to wall case -17:30
 - [ ] refactoring on macOS to do faster
     - [ ] reconstruct struct -18:30
     - [ ] rename func and variables -20:30
