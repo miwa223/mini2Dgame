@@ -7,13 +7,13 @@ int	close_window(void)
 
 void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara_y)
 {
-	int	i;
 	int	x;
 	int	y;
+	int	i;
 
-	i = 0;
 	x = 0;
 	y = 0;
+	i = 0;
 	while (map[i] != '\0')
 	{
 		if (map[i] == '\n')
@@ -65,44 +65,44 @@ int	display_sprites(t_data *data, int x, int y)
 	return (0);
 }
 
-bool	condition_by_each_key(t_data *data, int key)
+bool	judge_by_key(t_data *data, int key, int x, int y)
 {
-	if (key == A && data->map.content[i] == WALL && map_y == data->player.pos.y
-		&& map_x == data->player.pos.x - data->img_size.x)
+	if (key == A && y == data->player.pos.y
+		&& x == data->player.pos.x - data->img_size.x)
 		return (true);
-	else if (key == S && data->map.content[i] == WALL && map_x == data->player.pos.x
-		&& map_y == data->player.pos.y + data->img_size.y)
+	else if (key == S && x == data->player.pos.x
+		&& y == data->player.pos.y + data->img_size.y)
 		return (true);
-	else if (key == D && data->map.content[i] == WALL && map_y == data->player.pos.y
-		&& map_x == data->player.pos.x + data->img_size.x)
+	else if (key == D && y == data->player.pos.y
+		&& x == data->player.pos.x + data->img_size.x)
 		return (true);
-	else if (key == W && data->map.content[i] == WALL && map_x == data->player.pos.x
-		&& map_y == data->player.pos.y - data->img_size.y)
+	else if (key == W && x == data->player.pos.x
+		&& y == data->player.pos.y - data->img_size.y)
 		return (true);
 	return (false);
 }
 
 bool	move_to_wall(t_data *data, int key)
 {
+	int	x;
+	int	y;
 	int	i;
-	int	map_x;
-	int	map_y;
 
+	x = 0;
+	y = 0;
 	i = 0;
-	map_x = 0;
-	map_y = 0;
 	while (data->map.content[i] != '\0')
 	{
 		if (data->map.content[i] == '\n')
 		{
-			map_x = 0;
-			map_y += 31;
+			x = 0;
+			y += 31;
 			i++;
 			continue ;
 		}
-		if (condition_by_each_key(data, key))
+		if (data->map.content[i] == WALL && judge_by_key(data, key, x, y))
 			return (true);
-		map_x += 31;
+		x += 31;
 		i++;
 	}
 	return (false);
