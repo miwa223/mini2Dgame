@@ -65,7 +65,7 @@ void	init_struct(t_data *data, char **argv)
 	data->mlx = mlx_init();
 	data->player.pos.x = 0;
 	data->player.pos.y = 0;
-	data->player.move_count = 0;
+	data->player.move = 0;
 	read_map(argv, &data->map.content);
 	count_img_num_on_xy_axis(&data->map);
 	data->mlx_win = mlx_new_window(data->mlx, data->map.img_num.x * 31,

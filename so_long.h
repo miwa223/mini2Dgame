@@ -30,7 +30,7 @@ typedef struct s_xy{
 typedef struct s_player{
     void    *img;
     t_xy    pos;
-    int	    move_count;
+    int	    move;
 }               t_player;
 
 typedef struct s_map{
@@ -56,6 +56,11 @@ void	read_map(char **argv, char **map);
 void	count_img_num_on_xy_axis(t_map *map);
 void	convert_xpm_to_image(t_data *data);
 void	init_struct(t_data *data, char **argv);
+
+int	display_images(t_data *data);
+bool	judge_by_key(t_data *data, int key, int x, int y);
+bool	move_to_wall(t_data *data, int key);
+int	press_key(int key, t_data *data);
 
 bool	is_newline(t_data *data, int *x, int *y, int *i);
 bool	is_collectible_with_player(t_data *data, int *x, int y, int *i);
