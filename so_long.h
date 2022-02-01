@@ -10,8 +10,6 @@
 # include "mlx/mlx_int.h"
 # include "get_next_line.h"
 
-# define ERROR "Error\n"
-# define SPRITE_SIZE 31
 # define WALL '1'
 # define COLLECTIBLE 'C'
 # define EXIT 'E'
@@ -21,39 +19,34 @@
 # define D 100
 # define W 119
 # define ESC 65307
+# define SPRITE_SIZE 31
+# define ERROR "Error\n"
 
-typedef struct s_size{
+typedef struct s_xy{
 	int	x;
 	int	y;
-}				t_size;
+}				t_xy;
 
-typedef struct s_image{
+typedef struct s_player{
     void    *img;
-	t_size	size;
-    int	pos_x;
-    int	pos_y;
-    int	move_count;
-}               t_image;
-
-typedef struct s_window{
-    void *mlx_win;
-	t_size	size;
-}               t_window;
+    t_xy    pos;
+    int	    move_count;
+}               t_player;
 
 typedef struct s_map{
 	char	*content;
-	t_size	size;
+    t_xy    img_num;
 }				t_map;
 
 typedef struct s_data{
     void    *mlx;
-    int count;
-    t_window    window;
-    t_image tail;
-    t_image wall;
-    t_image player;
-    t_image collect;
-    t_image exit;
+    void    *mlx_win;
+    void    *tail_img;
+    void    *wall_img;
+    void    *collect_img;
+    void    *exit_img;
+    t_player player;
+    t_xy    img_size;
 	t_map	map;
 }               t_data;
 

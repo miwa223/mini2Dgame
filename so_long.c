@@ -1,19 +1,11 @@
 #include "so_long.h"
 
-void	init_struct(t_data *data, int y_count, int x_count)
+void	init_struct(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->window.size.x = x_count * 31;
-	data->window.size.y = y_count * 31;
-	data->player.pos_x = 0;
-	data->player.pos_y = 0;
+	data->player.pos.x = 0;
+	data->player.pos.y = 0;
 	data->player.move_count = 0;
-	data->wall.pos_x = 0;
-	data->wall.pos_y = 0;
-	data->collect.pos_x = 0;
-	data->collect.pos_y = 0;
-	data->exit.pos_x = 0;
-	data->exit.pos_y = 0;
 }
 
 int	close_window(void)
@@ -41,7 +33,7 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 		}
 		if (map[i] == WALL)
 		{
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->wall.img, x, y);
+			mlx_put_image_to_window(data->mlx, data->mlx_win, data->wall_img, x, y);
 		}
 		else if (map[i] == COLLECTIBLE)
 		{
@@ -52,7 +44,7 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 				x += 31;
 				continue ;
 			}
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->collect.img,
+			mlx_put_image_to_window(data->mlx, data->mlx_win, data->collect_img,
 				x, y);
 		}
 		else if (map[i] == EXIT)
@@ -61,23 +53,22 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 			{
 				exit(EXIT_SUCCESS);
 			}
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->exit.img,
+			mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
 				x, y);
 		}
 		else if (map[i] == START_POSITION)
 		{
-			data->player.pos_x = x;
-			data->player.pos_y = y;
+			data->player.pos.x = x;
+			data->player.pos.y = y;
 		}
 		x += 31;
 		i++;
 	}
-	printf("--------------------------------------\n");
 }
 
 int	display_sprites(t_data *data, int x, int y)
 {
-	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->tail.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tail_img, 0, 0);
 	put_sprites(data, data->map.content, x, y);
 	return (0);
 }
@@ -100,17 +91,17 @@ bool	move_to_wall(t_data *data, int key)
 			i++;
 			continue ;
 		}
-		if (key == A && data->map.content[i] == WALL && map_y == data->player.pos_y
-			&& map_x == data->player.pos_x - data->player.size.x)
+		if (key == A && data->map.content[i] == WALL && map_y == data->player.pos.y
+			&& map_x == data->player.pos.x - data->img_size.x)
 			return (true);
-		else if (key == S && data->map.content[i] == WALL && map_x == data->player.pos_x
-			&& map_y == data->player.pos_y + data->player.size.y)
+		else if (key == S && data->map.content[i] == WALL && map_x == data->player.pos.x
+			&& map_y == data->player.pos.y + data->img_size.y)
 			return (true);
-		else if (key == D && data->map.content[i] == WALL && map_y == data->player.pos_y
-			&& map_x == data->player.pos_x + data->player.size.x)
+		else if (key == D && data->map.content[i] == WALL && map_y == data->player.pos.y
+			&& map_x == data->player.pos.x + data->img_size.x)
 			return (true);
-		else if (key == W && data->map.content[i] == WALL && map_x == data->player.pos_x
-			&& map_y == data->player.pos_y - data->player.size.y)
+		else if (key == W && data->map.content[i] == WALL && map_x == data->player.pos.x
+			&& map_y == data->player.pos.y - data->img_size.y)
 			return (true);
 		map_x += 31;
 		i++;
@@ -129,48 +120,48 @@ int	press_key(int key, t_data *data)
 		exit(EXIT_SUCCESS);
 	if (key == A)
 	{
-		if (data->player.pos_x == data->player.size.x)
+		if (data->player.pos.x == data->img_size.x)
 			return (0);
 		if (move_to_wall(data, A))
 			return (0);
-		data->player.pos_x -= data->player.size.x;
+		data->player.pos.x -= data->img_size.x;
 	}
 	else if (key == S)
 	{
-		if (data->player.pos_y == data->player.size.y * (data->map.size.y - 2)) //y_count - 2 = 2
+		if (data->player.pos.y == data->img_size.y * (data->map.img_num.y - 2)) //y_count - 2 = 2
 			return (0);
 		if (move_to_wall(data, S))
 			return (0);
-		data->player.pos_y += data->player.size.y;
+		data->player.pos.y += data->img_size.y;
 	}
 	else if (key == D)
 	{
-		if (data->player.pos_x == data->player.size.x * (data->map.size.x - 2)) //x_count - 2 = 7
+		if (data->player.pos.x == data->img_size.x * (data->map.img_num.x - 2)) //x_count - 2 = 7
 			return (0);
 		if (move_to_wall(data, D))
 			return (0);
-		data->player.pos_x += data->player.size.x;
+		data->player.pos.x += data->img_size.x;
 	}
 	else if (key == W)
 	{
-		if (data->player.pos_y == data->player.size.y)
+		if (data->player.pos.y == data->img_size.y)
 			return (0);
 		if (move_to_wall(data, W))
 			return (0);
-		data->player.pos_y -= data->player.size.y;
+		data->player.pos.y -= data->img_size.y;
 	}
 	if (key == A || key == S || key == D || key == W)
 	{
 		data->player.move_count += 1;
 		printf("The current number of movements: %d\n", data->player.move_count);
 	}
-	x = data->player.pos_x;
-	y = data->player.pos_y;
+	x = data->player.pos.x;
+	y = data->player.pos.y;
 	// mlx_clear_window(data->mlx, data->window.mlx_win);
 	display_sprites(data, x, y);
-	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->player.img, x, y);
-	data->player.pos_x = x;
-	data->player.pos_y = y;
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->player.img, x, y);
+	data->player.pos.x = x;
+	data->player.pos.y = y;
 	return (0);
 }
 
@@ -196,28 +187,28 @@ void	read_map(char **argv, char **map)
 	close(fd);
 }
 
-void	calc_newline(char *map, int *y_count, int *x_count)
+void	calc_newline(char *map, t_data *data)
 {
 	int	i;
 	int	flag;
 
 	i = 0;
 	flag = 0;
-	*y_count = 0;
+	data->map.img_num.y = 0;
 	while (map[i] != '\0')
 	{
 		if (map[i] == '\n')
 		{
-			*y_count += 1;
 			if (flag == 0)
 			{
-				*x_count = i;
+				data->map.img_num.x = i;
 				flag = 1;
 			}
+			data->map.img_num.y += 1;
 		}
 		i++;
 	}
-	*y_count += 1;
+	data->map.img_num.y += 1;
 }
 
 void	convert_xpm_to_image(t_data *data)
@@ -233,37 +224,34 @@ void	convert_xpm_to_image(t_data *data)
 	tail_path = "images/tail.xpm";
 	collect_path = "images/collectible.xpm";
 	exit_path = "images/exit.xpm";
-	data->tail.img = mlx_xpm_file_to_image(data->mlx, tail_path,
-		&data->tail.size.x, &data->tail.size.y);
+	data->tail_img = mlx_xpm_file_to_image(data->mlx, tail_path,
+		&data->img_size.x, &data->img_size.y);
 	data->player.img = mlx_xpm_file_to_image(data->mlx, player_path,
-		&data->player.size.x, &data->player.size.y);
-	data->wall.img = mlx_xpm_file_to_image(data->mlx, wall_path,
-		&data->wall.size.x, &data->wall.size.y);
-	data->collect.img = mlx_xpm_file_to_image(data->mlx, collect_path,
-		&data->collect.size.x, &data->collect.size.y);
-	data->exit.img = mlx_xpm_file_to_image(data->mlx, exit_path,
-		&data->exit.size.x, &data->exit.size.y);
+		&data->img_size.x, &data->img_size.y);
+	data->wall_img = mlx_xpm_file_to_image(data->mlx, wall_path,
+		&data->img_size.x, &data->img_size.y);
+	data->collect_img = mlx_xpm_file_to_image(data->mlx, collect_path,
+		&data->img_size.x, &data->img_size.y);
+	data->exit_img = mlx_xpm_file_to_image(data->mlx, exit_path,
+		&data->img_size.x, &data->img_size.y);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int	y_count;
-	int	x_count;
     char    *map;
 
 	is_valid_argv(argc, argv);
 	read_map(argv, &map);
-	calc_newline(map, &y_count, &x_count);
-	init_struct(&data, y_count, x_count);
+	calc_newline(map, &data);
+	init_struct(&data);
 	data.map.content = map;
-	data.map.size.x = x_count;
-	data.map.size.y = y_count;
-	data.window.mlx_win = mlx_new_window(data.mlx, data.window.size.x, data.window.size.y, "so_long");
+	data.mlx_win = mlx_new_window(data.mlx, data.map.img_num.x * 31,
+		data.map.img_num.y * 31, "so_long");
 	convert_xpm_to_image(&data);
 	display_sprites(&data, 0, 0);
-	mlx_hook(data.window.mlx_win, 17, 0, close_window, 0);
-	mlx_key_hook(data.window.mlx_win, press_key, &data);
+	mlx_hook(data.mlx_win, 17, 0, close_window, 0);
+	mlx_key_hook(data.mlx_win, press_key, &data);
 	// mlx_sync(2, data.mlx_win);
 	// mlx_loop_hook(data.mlx, display_sprites, &data);
 	mlx_loop(data.mlx);
