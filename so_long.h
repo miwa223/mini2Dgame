@@ -12,24 +12,32 @@
 
 # define ERROR "Error\n"
 # define SPRITE_SIZE 31
+# define WALL '1'
+# define COLLECTIBLE 'C'
+# define EXIT 'E'
+# define START_POSITION 'P'
+# define A 97
+# define S 115
+# define D 100
+# define W 119
+# define ESC 65307
+
+typedef struct s_size{
+	int	x;
+	int	y;
+}				t_size;
 
 typedef struct s_image{
     void    *img;
-    int size_x;
-    int size_y;
+	t_size	size;
     int position_x;
     int position_y;
-    char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
     int     move_count;
 }               t_image;
 
 typedef struct s_window{
     void *mlx_win;
-    int size_x;
-    int size_y;
+	t_size	size;
 }               t_window;
 
 typedef struct s_data{
