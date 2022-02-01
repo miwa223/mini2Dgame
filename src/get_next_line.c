@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 int	search_newline(char **save, char **line)
 {

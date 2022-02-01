@@ -33,7 +33,7 @@
 - [ ] refactoring on macOS to do faster
     - [x] reconstruct struct -18:30
     - [x] rename func and variables -20:30
-    - [ ] file components (1hr: create directory) -21:30
+    - [x] file components (1hr: create directory) -21:30
     - [x] norm a little -22:30
 - [ ] window management(change to another window, minimizing) ask someone
 - [ ] deal with tail size -23:30

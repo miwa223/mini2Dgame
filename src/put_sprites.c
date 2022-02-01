@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 bool	is_newline(t_data *data, int *x, int *y, int *i)
 {

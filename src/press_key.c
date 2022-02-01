@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 int	display_images(t_data *data)
 {
