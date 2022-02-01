@@ -1,11 +1,11 @@
 #include "so_long.h"
 
-void	init_struct(t_data *data, int newline_count, int x_count)
+void	init_struct(t_data *data, int y_count, int x_count)
 {
 	data->mlx = mlx_init();
 	data->window.size.x = x_count * 31;
-	data->window.size.y = (newline_count + 1) * 31;
-	data->player.pos_x = 0; //starting position
+	data->window.size.y = y_count * 31;
+	data->player.pos_x = 0;
 	data->player.pos_y = 0;
 	data->player.move_count = 0;
 	data->wall.pos_x = 0;
@@ -97,7 +97,7 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 int	display_sprites(t_data *data, int x, int y)
 {
 	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->tail.img, 0, 0);
-	put_sprites(data, data->map, x, y);
+	put_sprites(data, data->map.content, x, y);
 	return (0);
 }
 
@@ -122,7 +122,7 @@ int	press_key(int key, t_data *data)
 	}
 	else if (key == S)
 	{
-		if (data->player.pos_y == data->player.size.y * 2) //newline_count - 1 = 2
+		if (data->player.pos_y == data->player.size.y * 2) //y_count - 1 = 2
 			return (0);
 		data->player.pos_y += data->player.size.y;
 		printf("S x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
@@ -160,7 +160,6 @@ int	press_key(int key, t_data *data)
 	return (0);
 }
 
-
 void	read_map(char **argv, char **map)
 {
 	int	fd;
@@ -177,26 +176,25 @@ void	read_map(char **argv, char **map)
 			*map = ft_strjoin(*map, line);
 		*map = ft_strjoin(*map, "\n");
 		i++;
-		printf("OK; %s\n", *map);
 	}
 	*map = ft_strjoin(*map, line);
 	free(line);
 	close(fd);
 }
 
-void	calc_newline(char *map, int *newline_count, int *x_count)
+void	calc_newline(char *map, int *y_count, int *x_count)
 {
 	int	i;
 	int	flag;
 
 	i = 0;
 	flag = 0;
-	*newline_count = 0;
+	*y_count = 0;
 	while (map[i] != '\0')
 	{
 		if (map[i] == '\n')
 		{
-			*newline_count += 1;
+			*y_count += 1;
 			if (flag == 0)
 			{
 				*x_count = i;
@@ -205,6 +203,7 @@ void	calc_newline(char *map, int *newline_count, int *x_count)
 		}
 		i++;
 	}
+	*y_count += 1;
 }
 
 void	convert_xpm_to_image(t_data *data)
@@ -221,7 +220,7 @@ void	convert_xpm_to_image(t_data *data)
 	collect_path = "images/collectible.xpm";
 	exit_path = "images/exit.xpm";
 	data->tail.img = mlx_xpm_file_to_image(data->mlx, tail_path,
-		&data->window.size.x, &data->window.size.y);
+		&data->tail.size.x, &data->tail.size.y);
 	data->player.img = mlx_xpm_file_to_image(data->mlx, player_path,
 		&data->player.size.x, &data->player.size.y);
 	data->wall.img = mlx_xpm_file_to_image(data->mlx, wall_path,
@@ -235,15 +234,15 @@ void	convert_xpm_to_image(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int	newline_count;
+	int	y_count;
 	int	x_count;
     char    *map;
 
 	is_valid_argv(argc, argv);
 	read_map(argv, &map);
-	calc_newline(map, &newline_count, &x_count);
-	init_struct(&data, newline_count, x_count);
-	data.map = map;
+	calc_newline(map, &y_count, &x_count);
+	init_struct(&data, y_count, x_count);
+	data.map.content = map;
 	data.window.mlx_win = mlx_new_window(data.mlx, data.window.size.x, data.window.size.y, "so_long");
 	convert_xpm_to_image(&data);
 	display_sprites(&data, 0, 0);

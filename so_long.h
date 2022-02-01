@@ -40,11 +40,9 @@ typedef struct s_window{
 	t_size	size;
 }               t_window;
 
-typedef struct s_map
-{
+typedef struct s_map{
 	char	*content;
-	int	x_count;
-	int	y_count;
+	t_size	size;
 }				t_map;
 
 typedef struct s_data{
@@ -56,7 +54,7 @@ typedef struct s_data{
     t_image player;
     t_image collect;
     t_image exit;
-    char *map;
+	t_map	map;
 }               t_data;
 
 // void	init_struct(t_data *data);
