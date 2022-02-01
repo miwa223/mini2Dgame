@@ -5,6 +5,29 @@ int	close_window(void)
 	exit(EXIT_SUCCESS);
 }
 
+// void	check_exit(t_data *data, char map, int current_chara_x, int current_chara_y)
+// {
+// 	if (map == EXIT)
+// 	{
+// 		if (x == current_chara_x && y == current_chara_y)
+// 			exit(EXIT_SUCCESS);
+// 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
+// 			x, y);
+// 	}
+// }
+
+bool	check_newline(t_data *data, int *x, int *y, int *i)
+{
+	if (data.map.cotent[*i] == '\n')
+	{
+		*x = 0;
+		*y += SPRITE_SIZE;
+		*i++;
+		return (true);
+	}
+	return (false);
+}
+
 void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara_y)
 {
 	int	x;
@@ -16,17 +39,18 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 	i = 0;
 	while (map[i] != '\0')
 	{
-		if (map[i] == '\n')
-		{
-			x = 0;
-			y += SPRITE_SIZE;
-			i++;
+		if (check_newline(data, &x, &y, &i))
 			continue ;
-		}
+		// if (map[i] == '\n')
+		// {
+		// 	x = 0;
+		// 	y += SPRITE_SIZE;
+		// 	i++;
+		// 	continue ;
+		// }
 		if (map[i] == WALL)
-		{
-			mlx_put_image_to_window(data->mlx, data->mlx_win, data->wall_img, x, y);
-		}
+			mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->wall_img, x, y);
 		else if (map[i] == COLLECTIBLE)
 		{
 			if (x == current_chara_x && y == current_chara_y)
@@ -42,9 +66,7 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 		else if (map[i] == EXIT)
 		{
 			if (x == current_chara_x && y == current_chara_y)
-			{
 				exit(EXIT_SUCCESS);
-			}
 			mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
 				x, y);
 		}
