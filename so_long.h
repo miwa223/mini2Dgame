@@ -30,9 +30,9 @@ typedef struct s_size{
 typedef struct s_image{
     void    *img;
 	t_size	size;
-    int position_x;
-    int position_y;
-    int     move_count;
+    int	pos_x;
+    int	pos_y;
+    int	move_count;
 }               t_image;
 
 typedef struct s_window{
@@ -40,15 +40,22 @@ typedef struct s_window{
 	t_size	size;
 }               t_window;
 
+typedef struct s_map
+{
+	char	*content;
+	int	x_count;
+	int	y_count;
+}				t_map;
+
 typedef struct s_data{
     void    *mlx;
     int count;
     t_window    window;
     t_image tail;
     t_image wall;
-    t_image character;
-    t_image present;
-    t_image boat;
+    t_image player;
+    t_image collect;
+    t_image exit;
     char *map;
 }               t_data;
 

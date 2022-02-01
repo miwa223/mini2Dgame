@@ -5,15 +5,15 @@ void	init_struct(t_data *data, int newline_count, int x_count)
 	data->mlx = mlx_init();
 	data->window.size.x = x_count * 31;
 	data->window.size.y = (newline_count + 1) * 31;
-	data->character.position_x = 0; //starting position
-	data->character.position_y = 0;
-	data->character.move_count = 0;
-	data->wall.position_x = 0;
-	data->wall.position_y = 0;
-	data->present.position_x = 0;
-	data->present.position_y = 0;
-	data->boat.position_x = 0;
-	data->boat.position_y = 0;
+	data->player.pos_x = 0; //starting position
+	data->player.pos_y = 0;
+	data->player.move_count = 0;
+	data->wall.pos_x = 0;
+	data->wall.pos_y = 0;
+	data->collect.pos_x = 0;
+	data->collect.pos_y = 0;
+	data->exit.pos_x = 0;
+	data->exit.pos_y = 0;
 }
 
 int	close_window(void)
@@ -34,13 +34,13 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 	{
 		if (map[i] == WALL)
 		{
-			data->wall.position_x = x;
-			data->wall.position_x += SPRITE_SIZE;
-			data->wall.position_y = y;
-			x = data->wall.position_x;
-			y = data->wall.position_y;
+			data->wall.pos_x = x;
+			data->wall.pos_x += SPRITE_SIZE;
+			data->wall.pos_y = y;
+			x = data->wall.pos_x;
+			y = data->wall.pos_y;
 			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->wall.img,
-				data->wall.position_x, data->wall.position_y);
+				data->wall.pos_x, data->wall.pos_y);
 		}
 		else if (map[i] == '\n')
 		{
@@ -49,48 +49,44 @@ void	put_sprites(t_data *data, char *map, int current_chara_x, int current_chara
 		}
 		else if (map[i] == COLLECTIBLE) //
 		{
-			data->present.position_x = x;
-			data->present.position_x += SPRITE_SIZE;
-			data->present.position_y = y;
-			x = data->present.position_x;
-			y = data->present.position_y;
+			data->collect.pos_x = x;
+			data->collect.pos_x += SPRITE_SIZE;
+			data->collect.pos_y = y;
+			x = data->collect.pos_x;
+			y = data->collect.pos_y;
 			if (x == current_chara_x && y == current_chara_y)
 			{
 				map[i] = '0';
 				i++;
 				continue ;
 			}
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->present.img,
-				data->present.position_x, data->present.position_y);
+			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->collect.img,
+				data->collect.pos_x, data->collect.pos_y);
 		}
 		else if (map[i] == EXIT)
 		{
-			data->boat.position_x = x;
-			data->boat.position_x += SPRITE_SIZE;
-			data->boat.position_y = y;
-			x = data->boat.position_x;
-			y = data->boat.position_y;
+			data->exit.pos_x = x;
+			data->exit.pos_x += SPRITE_SIZE;
+			data->exit.pos_y = y;
+			x = data->exit.pos_x;
+			y = data->exit.pos_y;
 			if (x == current_chara_x && y == current_chara_y)
 			{
 				exit(EXIT_SUCCESS);
 			}
-			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->boat.img,
-				data->boat.position_x, data->boat.position_y);
+			mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->exit.img,
+				data->exit.pos_x, data->exit.pos_y);
 		}
 		else if (map[i] == START_POSITION)
 		{
-			data->character.position_x = x;
-			data->character.position_x += SPRITE_SIZE;
-			data->character.position_y = y;
-			x = data->character.position_x;
-			y = data->character.position_y;
-			// mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->character.img,
-			// 	data->character.position_x, data->character.position_y);
+			data->player.pos_x = x;
+			data->player.pos_x += SPRITE_SIZE;
+			data->player.pos_y = y;
+			x = data->player.pos_x;
+			y = data->player.pos_y;
 		}
 		else
-		{
 			x += 31;
-		}
 		// printf("x; %d\n", x);
 		// printf("y; %d\n", y);
 		i++;
@@ -105,7 +101,7 @@ int	display_sprites(t_data *data, int x, int y)
 	return (0);
 }
 
-//for esc key and main character's move
+//for esc key and main player's move
 int	press_key(int key, t_data *data)
 {
 	int x;
@@ -117,50 +113,50 @@ int	press_key(int key, t_data *data)
 		exit(EXIT_SUCCESS);
 	if (key == A)
 	{
-		if (data->character.position_x == data->character.size.x)
+		if (data->player.pos_x == data->player.size.x)
 		{
 			printf("A\n");
 			return (0);
 		}
-		data->character.position_x -= data->character.size.x;
+		data->player.pos_x -= data->player.size.x;
 	}
 	else if (key == S)
 	{
-		if (data->character.position_y == data->character.size.y * 2) //newline_count - 1 = 2
+		if (data->player.pos_y == data->player.size.y * 2) //newline_count - 1 = 2
 			return (0);
-		data->character.position_y += data->character.size.y;
-		printf("S x; %d, y; %d\n", data->character.position_x, data->character.position_y);
+		data->player.pos_y += data->player.size.y;
+		printf("S x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	else if (key == D)
 	{
-		printf("chara_pos; %d\n", data->character.position_x);
+		printf("chara_pos; %d\n", data->player.pos_x);
 		printf("win; %d\n", data->window.size.x);
-		printf("chara_size; %d\n", data->character.size.x);
-		if (data->character.position_x == data->character.size.x * 7) //x_count - 2 = 7
+		printf("chara_size; %d\n", data->player.size.x);
+		if (data->player.pos_x == data->player.size.x * 7) //x_count - 2 = 7
 			return (0);
-		data->character.position_x += data->character.size.x;
-		printf("D x; %d, y; %d\n", data->character.position_x, data->character.position_y);
+		data->player.pos_x += data->player.size.x;
+		printf("D x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	else if (key == W)
 	{
-		if (data->character.position_y == data->character.size.y)
+		if (data->player.pos_y == data->player.size.y)
 			return (0);
-		data->character.position_y -= data->character.size.y;
-		printf("W x; %d, y; %d\n", data->character.position_x, data->character.position_y);
+		data->player.pos_y -= data->player.size.y;
+		printf("W x; %d, y; %d\n", data->player.pos_x, data->player.pos_y);
 	}
 	if (key == A || key == S || key == D || key == W)
 	{
-		data->character.move_count += 1;
-		printf("The current number of movements: %d\n", data->character.move_count);
+		data->player.move_count += 1;
+		printf("The current number of movements: %d\n", data->player.move_count);
 	}
-	x = data->character.position_x;
-	y = data->character.position_y;
+	x = data->player.pos_x;
+	y = data->player.pos_y;
 	// mlx_clear_window(data->mlx, data->window.mlx_win);
 	display_sprites(data, x, y);
-	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->character.img,
+	mlx_put_image_to_window(data->mlx, data->window.mlx_win, data->player.img,
 				x, y);
-	data->character.position_x = x;
-	data->character.position_y = y;
+	data->player.pos_x = x;
+	data->player.pos_y = y;
 	return (0);
 }
 
@@ -213,22 +209,27 @@ void	calc_newline(char *map, int *newline_count, int *x_count)
 
 void	convert_xpm_to_image(t_data *data)
 {
-	char	*character_path = "images/character.xpm";
-	char	*wall_path = "images/wall.xpm";
-	char	*tail_path = "images/tail.xpm";
-	char	*present_path = "images/present.xpm";
-	char	*boat_path = "images/boat.xpm";
+	char	*player_path;
+	char	*wall_path;
+	char	*tail_path;
+	char	*collect_path;
+	char	*exit_path;
 
+	player_path = "images/player.xpm";
+	wall_path = "images/wall.xpm";
+	tail_path = "images/tail.xpm";
+	collect_path = "images/collectible.xpm";
+	exit_path = "images/exit.xpm";
 	data->tail.img = mlx_xpm_file_to_image(data->mlx, tail_path,
 		&data->window.size.x, &data->window.size.y);
-	data->character.img = mlx_xpm_file_to_image(data->mlx, character_path,
-		&data->character.size.x, &data->character.size.y);
+	data->player.img = mlx_xpm_file_to_image(data->mlx, player_path,
+		&data->player.size.x, &data->player.size.y);
 	data->wall.img = mlx_xpm_file_to_image(data->mlx, wall_path,
 		&data->wall.size.x, &data->wall.size.y);
-	data->present.img = mlx_xpm_file_to_image(data->mlx, present_path,
-		&data->present.size.x, &data->present.size.y);
-	data->boat.img = mlx_xpm_file_to_image(data->mlx, boat_path,
-		&data->boat.size.x, &data->boat.size.y);
+	data->collect.img = mlx_xpm_file_to_image(data->mlx, collect_path,
+		&data->collect.size.x, &data->collect.size.y);
+	data->exit.img = mlx_xpm_file_to_image(data->mlx, exit_path,
+		&data->exit.size.x, &data->exit.size.y);
 }
 
 int	main(int argc, char **argv)
@@ -243,7 +244,6 @@ int	main(int argc, char **argv)
 	calc_newline(map, &newline_count, &x_count);
 	init_struct(&data, newline_count, x_count);
 	data.map = map;
-
 	data.window.mlx_win = mlx_new_window(data.mlx, data.window.size.x, data.window.size.y, "so_long");
 	convert_xpm_to_image(&data);
 	display_sprites(&data, 0, 0);
