@@ -2,7 +2,7 @@
 - [x] display move number in the shell at every move
 - [ ] window management(change to another window, minimizing)
 - [x] use a 2D view(top-down or profile)
-- [ ] display the image in a window
+- [x] display the image in a window
     - [x] W/A/S/D key
     - [x] ESC key to close window and quit program
     - [x] red cross on the window can be used to close window and quit program
@@ -12,7 +12,7 @@
 - [ ] no need to check if there is a valid path in the map
 - [ ] error validation
     - [ ] map
-    - [ ] params
+    - [x] params
 - [ ] memory leak
 
 1/26W
@@ -23,7 +23,7 @@
 1/27T
 - [x] display tail
 - [x] display wall around the tail
-- [ ] validation - check argv[1] ".ber"
+- [x] validation - check argv[1] ".ber"
 - [x] arrange sprites to the place I want
 
 2/1T
@@ -37,7 +37,7 @@
     - [x] norm a little -22:30
 
 2/2W
-- [ ] param validation 9:30-10:30
+- [x] param validation 9:30-10:30
 - [ ] window management(change to another window, minimizing) ask someone
 - [ ] deal with tail size 10:30-12:00
 - [ ] error handling (use strerror/perror)

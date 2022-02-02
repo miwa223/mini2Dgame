@@ -5,6 +5,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
@@ -21,6 +22,11 @@
 # define ESC 65307
 # define SPRITE_SIZE 31
 # define ERROR "Error\n"
+
+typedef enum e_error{
+    INVALID_ARG,
+    INVALID_MAP
+}               t_error;
 
 typedef struct s_xy{
 	int	x;
@@ -50,7 +56,7 @@ typedef struct s_data{
 	t_map	map;
 }               t_data;
 
-void    exit_program(void);
+void    exit_program(int error_type);
 void    is_valid_argv(int argc, char **argv);
 void	read_map(char **argv, char **map);
 void	count_img_num_on_xy_axis(t_map *map);

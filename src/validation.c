@@ -1,22 +1,27 @@
 #include "../inc/so_long.h"
 
-void    exit_program(void)
+void    exit_program(int error_type)
 {
-    printf("%s", ERROR);
+    if (error_type == INVALID_ARG)
+        printf("Error\nInvalid arguments\n");
     exit(EXIT_FAILURE);
 }
 
 void    is_valid_argv(int argc, char **argv)
 {
     int i;
+    char    *str;
 
     i = 0;
+    str = NULL;
     if (argc != 2)
-        exit_program();
-    while (argv[1][i] != '\0' && argv[1][i] != '.')
+        exit_program(INVALID_ARG);
+    while (argv[1][i] != '\0')
     {
+        if (argv[1][i] == '.')
+            str = &argv[1][i];
         i++;
     }
-    // if (argv[1][i] != ".bat")
-    //     exit_program();
+    if (!str || ft_strncmp(str, ".ber", ft_strlen(str)) != 0)
+        exit_program(INVALID_ARG);
 }
