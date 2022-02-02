@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:37:06 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:40:50 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ typedef struct s_map{
 }				t_map;
 
 typedef struct s_data{
-	void	*mlx;
-	void	*mlx_win;
-	t_tail	tail;
-	void	*wall_img;
-	void	*collect_img;
-	void	*exit_img;
+	void		*mlx;
+	void		*mlx_win;
+	t_tail		tail;
+	void		*wall_img;
+	void		*collect_img;
+	void		*exit_img;
 	t_player	player;
-	t_xy	img_size;
-	t_map	map;
-	int		free_type;
+	t_xy		img_size;
+	t_map		map;
+	int			free_type;
 }				t_data;
 
 void	is_valid_argv(int argc, char **argv);
