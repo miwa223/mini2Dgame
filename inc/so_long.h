@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:40:50 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:51:48 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define D 100
 # define W 119
 # define ESC 65307
-# define SPRITE_SIZE 31
-# define ERROR "Error\n"
 
 typedef enum e_error{
 	INVALID_ARG,
@@ -68,6 +66,7 @@ typedef struct s_tail{
 	void	*img;
 	t_xy	size;
 }				t_tail;
+
 typedef struct s_map{
 	char	*content;
 	t_xy	img_num;
@@ -98,18 +97,15 @@ int		count_to_eof(t_map *map, int i);
 void	count_img_num_on_xy_axis(t_map *map);
 void	convert_xpm_to_image(t_data *data);
 void	init_struct(t_data *data, char **argv);
-
 int		display_images(t_data *data);
 bool	judge_by_key(t_data *data, int key, int x, int y);
 bool	move_to_wall(t_data *data, int key);
 int		press_key(int key, t_data *data);
-
 bool	is_newline(t_data *data, int *x, int *y, int *i);
 bool	is_collectible_with_player(t_data *data, int *x, int y, int *i);
 void	is_exit(t_data *data, int x, int y, int i);
 void	is_start_position(t_data *data, int x, int y, int i);
 void	put_sprites(t_data *data);
-
 void	free_mlx(t_data *data);
 int		close_window(t_data *data);
 void	exit_program(int error_type);

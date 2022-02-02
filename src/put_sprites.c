@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:58 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:35:59 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:49:25 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_newline(t_data *data, int *x, int *y, int *i)
 	if (data->map.content[*i] == '\n')
 	{
 		*x = 0;
-		*y += SPRITE_SIZE;
+		*y += data->img_size.y;
 		(*i)++;
 		return (true);
 	}

@@ -48,8 +48,9 @@
         - [x] rectangular
         - [x] wall, COLLECT, free space, anything else are error
         - [x] 1 exit(E), 1 COLLECT(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
-- [ ] change wall splite 20:00-20:30
+- [x] norm 20:30-21:30
 
-- [ ] norm 20:30-21:30
+2/3T
+- [ ] change wall splite
 - [ ] read code thoroughly
-- [ ] submittion 22:30
+- [ ] submittion
