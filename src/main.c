@@ -10,6 +10,5 @@ int	main(int argc, char **argv)
 	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	mlx_key_hook(data.mlx_win, press_key, &data);
 	mlx_loop(data.mlx);
-	// system("leaks so_long");
 	return (0);
 }
