@@ -17,7 +17,7 @@
 
 1/26W
 - [x] understand tasks
-- [x] get tail, sprites(hero, collectible, wall, exit)
+- [x] get tail, sprites(hero, COLLECT, wall, exit)
     - [x] try remove black tail behind sprites -> or set the same background color
 
 1/27T
@@ -46,8 +46,8 @@
     - [x] map 18:15-20:00
         - [x] surrounded walls
         - [x] rectangular
-        - [x] wall, collectible, free space, anything else are error
-        - [x] 1 exit(E), 1 collectible(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
+        - [x] wall, COLLECT, free space, anything else are error
+        - [x] 1 exit(E), 1 COLLECT(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
 - [ ] change wall splite 20:00-20:30
 
 - [ ] norm 20:30-21:30

@@ -12,9 +12,9 @@
 # include "get_next_line.h"
 
 # define WALL '1'
-# define COLLECTIBLE 'C'
+# define COLLECT 'C'
 # define EXIT 'E'
-# define START_POSITION 'P'
+# define PLAYER 'P'
 # define SPACE '0'
 # define A 97
 # define S 115

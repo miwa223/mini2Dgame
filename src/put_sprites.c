@@ -14,7 +14,7 @@ bool	is_newline(t_data *data, int *x, int *y, int *i)
 
 bool	is_collectible_with_player(t_data *data, int *x, int y, int *i)
 {
-	if (data->map.content[*i] == COLLECTIBLE)
+	if (data->map.content[*i] == COLLECT)
 	{
 		if (*x == data->player.pos.x && y == data->player.pos.y)
 		{
@@ -45,7 +45,7 @@ void	is_exit(t_data *data, int x, int y, int i)
 
 void	is_start_position(t_data *data, int x, int y, int i)
 {
-	if (data->map.content[i] == START_POSITION)
+	if (data->map.content[i] == PLAYER)
 	{
 		data->player.pos.x = x;
 		data->player.pos.y = y;
