@@ -84,11 +84,10 @@ void	is_valid_map(t_map *map)
 		if (check_first_last_line(map, i, is_first, is_last))
 			return ;
 		is_first = false;
-		// if (map->content[i] == '\n')
 		is_last = count_line(map, i, &line_num, is_last);
-		else if (map->content[i] != PLAYER
-			&& map->content[i] != COLLECT && map->content[i] != EXIT
-			&& map->content[i] != WALL && map->content[i] != SPACE)
+		if (map->content[i] != PLAYER && map->content[i] != COLLECT
+            && map->content[i] != EXIT && map->content[i] != WALL
+            && map->content[i] != SPACE && map->content[i] != '\n')
 		{
 			free(map->content);
 			exit_program(INVALID_MAP);
