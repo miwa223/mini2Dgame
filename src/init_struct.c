@@ -22,16 +22,14 @@ bool	concat_map(char **map, char *line, bool first_time)
 	return (first_time);
 }
 
-void	read_map(char **argv, char **map)
+void	get_map(char **map, int fd)
 {
-	int		fd;
-	int		status;
 	char	*line;
 	char	*tmp;
+	int		status;
 	bool	first_time;
 
 	first_time = true;
-	fd = open(argv[1], O_RDONLY);
 	status = get_next_line(fd, &line);
 	if (status == 0)
 		*map = line;
@@ -47,6 +45,13 @@ void	read_map(char **argv, char **map)
 			break ;
 		}
 	}
+}	
+
+void	read_map(char **argv, char **map)
+{
+	int		fd;
+	fd = open(argv[1], O_RDONLY);
+	get_map(map, fd);
 	if (close(fd) == -1)
 	{
 		free(*map);
@@ -87,25 +92,6 @@ void	count_img_num_on_xy_axis(t_map *map)
 {
 	int		i;
 
-	// i = 0;
-	// while (map->content[i] != '\0')
-	// {
-	// 	if (map->content[i] == '\n')
-	// 	{
-	// 		if (!counted)
-	// 		{
-	// 			map->img_num.x = i;
-	// 			counted = true;
-	// 		}
-	// 		else if (counted && i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)
-	// 		{
-	// 			free(map->content);
-	// 			exit_program(INVALID_MAP);
-	// 		}
-	// 		map->img_num.y += 1;
-	// 	}
-	// 	i++;
-	// }
 	i = count_til_eof(map);
 	if (map->content[i - 1] != '\n')
 	{
