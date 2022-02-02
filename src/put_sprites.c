@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:58 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:49:25 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:58:20 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_collectible_with_player(t_data *data, int *x, int y, int *i)
 		{
 			data->map.content[*i] = '0';
 			(*i)++;
-			*x += 31;
+			*x += data->img_size.x;
 			return (true);
 		}
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->collect_img,
@@ -85,7 +85,7 @@ void	put_sprites(t_data *data)
 			continue ;
 		is_exit(data, x, y, i);
 		is_start_position(data, x, y, i);
-		x += 31;
+		x += data->img_size.x;
 		i++;
 	}
 }

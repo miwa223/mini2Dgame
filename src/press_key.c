@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:52 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:35:53 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:59:33 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	display_images(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (x < data->map.img_num.x * 31 && y < data->map.img_num.y * 31)
+	while (x < data->map.img_num.x * data->img_size.x && y < data->map.img_num.y * data->img_size.y)
 	{
-		while (x < data->map.img_num.x * 31)
+		while (x < data->map.img_num.x * data->img_size.x)
 		{
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
 				data->tail.img, x, y);
@@ -66,7 +66,7 @@ bool	move_to_wall(t_data *data, int key)
 			continue ;
 		if (data->map.content[i] == WALL && judge_by_key(data, key, x, y))
 			return (true);
-		x += 31;
+		x += data->img_size.x;
 		i++;
 	}
 	return (false);
