@@ -54,7 +54,7 @@ void	read_map(char **argv, char **map)
 	}
 }
 
-void	count_img_num_on_xy_axis(t_map *map)
+int	count_til_eof(t_map *map)
 {
 	int		i;
 	bool	counted;
@@ -77,10 +77,36 @@ void	count_img_num_on_xy_axis(t_map *map)
 				exit_program(INVALID_MAP);
 			}
 			map->img_num.y += 1;
-			printf("x; %d, y; %d\n", map->img_num.x, map->img_num.y);
 		}
 		i++;
 	}
+	return (i);
+}
+
+void	count_img_num_on_xy_axis(t_map *map)
+{
+	int		i;
+
+	// i = 0;
+	// while (map->content[i] != '\0')
+	// {
+	// 	if (map->content[i] == '\n')
+	// 	{
+	// 		if (!counted)
+	// 		{
+	// 			map->img_num.x = i;
+	// 			counted = true;
+	// 		}
+	// 		else if (counted && i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)
+	// 		{
+	// 			free(map->content);
+	// 			exit_program(INVALID_MAP);
+	// 		}
+	// 		map->img_num.y += 1;
+	// 	}
+	// 	i++;
+	// }
+	i = count_til_eof(map);
 	if (map->content[i - 1] != '\n')
 	{
 		if (i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)
@@ -90,7 +116,6 @@ void	count_img_num_on_xy_axis(t_map *map)
 		}
 		map->img_num.y += 1;
 	}
-	printf("x; %d, y; %d\n", map->img_num.x, map->img_num.y);
 }
 
 void	convert_xpm_to_image(t_data *data)
