@@ -1,70 +1,9 @@
 #include "../inc/so_long.h"
 
-bool	concat_map(char **map, char *line, bool first_time)
+int	count_to_eof(t_map *map, int i)
 {
-	char	*tmp;
-
-	if (first_time)
-	{
-		*map = line;
-		first_time = false;
-	}
-	else
-	{
-		tmp = *map;
-		*map = ft_strjoin(*map, line);
-		free(tmp);
-		free(line);
-	}
-	tmp = *map;
-	*map = ft_strjoin(*map, "\n");
-	free(tmp);
-	return (first_time);
-}
-
-void	get_map(char **map, int fd)
-{
-	char	*line;
-	char	*tmp;
-	int		status;
-	bool	first_time;
-
-	first_time = true;
-	status = get_next_line(fd, &line);
-	if (status == 0)
-		*map = line;
-	while (status == 1)
-	{
-		first_time = concat_map(map, line, first_time);
-		if (get_next_line(fd, &line) == 0)
-		{
-			tmp = *map;
-			*map = ft_strjoin(*map, line);
-			free(tmp);
-			free(line);
-			break ;
-		}
-	}
-}	
-
-void	read_map(char **argv, char **map)
-{
-	int		fd;
-	fd = open(argv[1], O_RDONLY);
-	get_map(map, fd);
-	if (close(fd) == -1)
-	{
-		free(*map);
-		exit_program(CLOSE_FAIL);
-	}
-}
-
-int	count_til_eof(t_map *map)
-{
-	int		i;
 	bool	counted;
 
-	i = 0;
 	counted = false;
 	map->img_num.y = 0;
 	while (map->content[i] != '\0')
@@ -76,7 +15,8 @@ int	count_til_eof(t_map *map)
 				map->img_num.x = i;
 				counted = true;
 			}
-			else if (counted && i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)
+			else if (counted
+				&& i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)
 			{
 				free(map->content);
 				exit_program(INVALID_MAP);
@@ -92,7 +32,8 @@ void	count_img_num_on_xy_axis(t_map *map)
 {
 	int		i;
 
-	i = count_til_eof(map);
+	i = 0;
+	i = count_to_eof(map, i);
 	if (map->content[i - 1] != '\n')
 	{
 		if (i - (map->img_num.x + 1) * map->img_num.y != map->img_num.x)

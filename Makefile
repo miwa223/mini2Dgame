@@ -1,7 +1,7 @@
 NAME = so_long
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -MMD -MP #-g -fsanitize=address
-SRCS = src/main.c src/init_struct.c src/press_key.c src/put_sprites.c \
+SRCS = src/main.c src/init_struct.c src/read_map.c src/press_key.c src/put_sprites.c \
 		src/validation.c src/exit.c src/get_next_line.c
 OBJS = $(SRCS:%.c=%.o)
 DEPENDS = $(OBJS:%.o=%.d)
