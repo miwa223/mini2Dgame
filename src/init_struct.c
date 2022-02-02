@@ -120,7 +120,7 @@ void	init_struct(t_data *data, char **argv)
 	data->player.move = 0;
 	read_map(argv, &data->map.content);
 	count_img_num_on_xy_axis(&data->map);
-	is_valid_map(data);
+	is_valid_map(&data->map);
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit_program(MLX_INIT_FAIL);

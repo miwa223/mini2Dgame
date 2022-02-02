@@ -76,7 +76,7 @@ typedef struct s_data{
 
 
 void    is_valid_argv(int argc, char **argv);
-void    is_valid_map(t_data *data);
+void    is_valid_map(t_map *map);
 bool	concat_map(char **map, char *line, bool first_time);
 void	read_map(char **argv, char **map);
 void	count_img_num_on_xy_axis(t_map *map);
