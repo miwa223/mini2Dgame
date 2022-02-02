@@ -12,12 +12,22 @@ void	is_valid_argv(int argc, char **argv)
 	while (argv[1][i] != '\0')
 	{
 		if (argv[1][i] == '.')
-		    str = &argv[1][i];
+			str = &argv[1][i];
 		i++;
 	}
 	if (!str || ft_strlen(str) != 4
 		|| ft_strncmp(str, ".ber", ft_strlen(str)) != 0)
 		exit_program(INVALID_ARG);
+}
+
+void	check_character_inclusion(t_map *map)
+{
+	if (!ft_strchr(map->content, PLAYER) || !ft_strchr(map->content, COLLECT)
+		|| !ft_strchr(map->content, EXIT))
+	{
+		free(map->content);
+		exit_program(INVALID_MAP);
+	}
 }
 
 bool	check_first_last_line(t_map *map, int i, bool is_first, bool is_last)
@@ -35,61 +45,54 @@ bool	check_first_last_line(t_map *map, int i, bool is_first, bool is_last)
 		i++;
 		j++;
 	}
-     if (is_last && map->img_num.x == j)
-        return (true);
-    else
-	    return (false);
+	if (is_last && map->img_num.x == j)
+		return (true);
+	else
+		return (false);
 }
 
-bool    count_line(t_map *map, int i, int *line_num, bool is_last)
+bool	count_line(t_map *map, int i, int *line_num, bool is_last)
 {
-    if (map->content[i - 1] != WALL || map->content[i + 1] != WALL)
-    {
-        free(map->content);
-        exit_program(INVALID_MAP);
-    }
-    (*line_num)++;
-    if (*line_num == map->img_num.y - 1)
-        is_last = true;
-    return (is_last);
-}
-
-void    check_character_inclusion(t_map *map)
-{
-    if (!ft_strchr(map->content, PLAYER) || !ft_strchr(map->content, COLLECT)
-        || !ft_strchr(map->content, EXIT))
-    {
-        free(map->content);
-        exit_program(INVALID_MAP);
-    }
+	if (map->content[i] == '\n')
+	{
+		if (map->content[i - 1] != WALL || map->content[i + 1] != WALL)
+		{
+			free(map->content);
+			exit_program(INVALID_MAP);
+		}
+		(*line_num)++;
+		if (*line_num == map->img_num.y - 1)
+			is_last = true;
+	}
+	return (is_last);
 }
 
 void	is_valid_map(t_map *map)
 {
-    int i;
-    int line_num;
-    bool    is_first;
-    bool    is_last;
+	int		i;
+	int		line_num;
+	bool	is_first;
+	bool	is_last;
 
-    i = 0;
-    line_num = 0;
-    is_first = true;
-    is_last = false;
-    check_character_inclusion(map);
-    while (map->content[i] != '\0')
-    {
-        if (check_first_last_line(map, i, is_first, is_last))
-            break ;
-        is_first = false;
-        if (map->content[i] == '\n')
-            is_last = count_line(map, i, &line_num, is_last);
-        else if (map->content[i] != PLAYER 
-            && map->content[i] != COLLECT && map->content[i] != EXIT
-            && map->content[i] != WALL && map->content[i] != SPACE)
-        {
-            free(map->content);
-            exit_program(INVALID_MAP);
-        }
-        i++;
-    }
+	i = 0;
+	line_num = 0;
+	is_first = true;
+	is_last = false;
+	check_character_inclusion(map);
+	while (map->content[i] != '\0')
+	{
+		if (check_first_last_line(map, i, is_first, is_last))
+			return ;
+		is_first = false;
+		// if (map->content[i] == '\n')
+		is_last = count_line(map, i, &line_num, is_last);
+		else if (map->content[i] != PLAYER
+			&& map->content[i] != COLLECT && map->content[i] != EXIT
+			&& map->content[i] != WALL && map->content[i] != SPACE)
+		{
+			free(map->content);
+			exit_program(INVALID_MAP);
+		}
+		i++;
+	}
 }
