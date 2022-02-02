@@ -34,7 +34,10 @@ void	is_exit(t_data *data, int x, int y, int i)
 	if (data->map.content[i] == EXIT)
 	{
 		if (x == data->player.pos.x && y == data->player.pos.y)
+		{
+			free_mlx(data);
 			exit(EXIT_SUCCESS);
+		}
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->exit_img,
 			x, y);
 	}

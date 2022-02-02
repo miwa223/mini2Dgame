@@ -2,7 +2,22 @@
 
 int	display_images(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->tail_img, 0, 0);
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < data->map.img_num.x * 31 && y < data->map.img_num.y * 31)
+	{
+		while (x < data->map.img_num.x * 31)
+		{
+			mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->tail.img, x, y);
+			x += data->tail.size.x;
+		}
+		x = 0;
+		y += data->tail.size.y;
+	}
 	put_sprites(data);
 	return (0);
 }
@@ -48,7 +63,7 @@ bool	move_to_wall(t_data *data, int key)
 int	press_key(int key, t_data *data)
 {
 	if (key == ESC)
-		exit(EXIT_SUCCESS);
+		close_window(data);
 	if ((key == A || key == S || key == D || key == W)
 		&& move_to_wall(data, key))
 		return (0);

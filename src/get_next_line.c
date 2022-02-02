@@ -14,13 +14,13 @@ int	search_newline(char **save, char **line)
 			if (!*line)
 			{
 				free_buffer(save);
-				return (-1);
+				exit_program(MALLOC_FAIL);
 			}
 			tmp = *save;
 			*save = ft_strdup(after_newline);
 			free_buffer(&tmp);
 			if (!*save)
-				return (-1);
+				exit_program(MALLOC_FAIL);
 			return (1);
 		}
 		*line = *save;
@@ -35,8 +35,10 @@ int	read_buf(char **save, char *buf, int fd)
 	char	*after_newline;
 
 	i = read(fd, buf, BUFFER_SIZE);
-	if (i < 1)
-		return (i);
+	if (i == -1)
+		exit_program(READ_FAIL);
+	if (i == 0)
+		return (0);
 	buf[i] = '\0';
 	after_newline = ft_strchr_return_next_char(buf, '\n');
 	i = 0;
@@ -44,7 +46,7 @@ int	read_buf(char **save, char *buf, int fd)
 	{
 		*save = ft_strdup(after_newline);
 		if (!*save)
-			return (-1);
+			exit_program(MALLOC_FAIL);
 		while (buf[i] != '\n' && i < BUFFER_SIZE)
 			i++;
 		buf[i] = '\0';
@@ -55,14 +57,12 @@ int	read_buf(char **save, char *buf, int fd)
 int	generate_line(char **save, char *buf, char **line, int fd)
 {
 	char	*tmp;
-	ssize_t	i;
 
 	tmp = NULL;
 	while (!*save)
 	{
-		i = read_buf(save, buf, fd);
-		if (i < 1)
-			return (i);
+		if (read_buf(save, buf, fd) == 0)
+			return (0);
 		if (!*line)
 			*line = ft_strdup(buf);
 		else if (*line)
@@ -74,7 +74,7 @@ int	generate_line(char **save, char *buf, char **line, int fd)
 		if (!*line)
 		{
 			free_buffer(save);
-			return (-1);
+			exit_program(MALLOC_FAIL);
 		}
 	}
 	return (1);
@@ -90,26 +90,25 @@ int	get_next_line(int fd, char **line)
 {
 	static char	*save[FD_MAX];
 	char		*buf;
-	ssize_t		i;
+	ssize_t		status;
 
 	*line = NULL;
 	buf = NULL;
-	if (fd < 0 || fd > FD_MAX || BUFFER_SIZE < 1 || !line)
-		return (-1);
-	i = search_newline(&save[fd], line);
-	if (i != 0)
-		return (i);
+	if (fd < 0 || fd > FD_MAX || !line)
+		exit_program(INVALID_ARG);
+	if (search_newline(&save[fd], line) == 1)
+		return (1);
 	buf = (char *)malloc((size_t)BUFFER_SIZE + 1);
 	if (!buf)
-		return (-1);
-	i = generate_line(&save[fd], buf, line, fd);
+		exit_program(MALLOC_FAIL);
+	status = generate_line(&save[fd], buf, line, fd);
 	free_buffer(&buf);
-	if (i == 0 && *line == NULL)
+	if (status == 0 && *line == NULL)
 	{
 		*line = (char *)malloc(1);
 		if (!*line)
-			return (-1);
+			exit_program(MALLOC_FAIL);
 		**line = '\0';
 	}
-	return (i);
+	return (status);
 }

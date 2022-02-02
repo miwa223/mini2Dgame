@@ -38,17 +38,18 @@
 
 2/2W
 - [x] param validation 9:30-10:30
-- [ ] window management(change to another window, minimizing) ask someone
-- [ ] deal with tail size 10:30-12:00
-- [ ] error handling (use strerror/perror)
-    - [ ] map 12:30-15:00
-        - [ ] number of each sprite
-        - [ ] surrounded walls
-        - [ ] rectangular
-        - [ ] wall, collectible, free space (anything else are error)
-        - [ ] 1 exit(E), 1 collectible(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
-    - [ ] mlx's return 15:00-16:00
-- [ ] memory leaks (free mlx instance?) 16:00-17:00
-- [ ] change wall splite 17:00-17:30
-- [ ] norm 17:30-18:30
-- [ ] submittion 20:30
+- [x] window management(change to another window, minimizing)
+- [x] deal with tail size 10:30-12:00
+- [x] memory leaks (free mlx instance?) 16:00-17:00
+- [x] error handling (use strerror/perror)
+    - [x] mlx's return 15:00-16:00
+    - [x] map 18:15-20:00
+        - [x] surrounded walls
+        - [x] rectangular
+        - [x] wall, collectible, free space, anything else are error
+        - [x] 1 exit(E), 1 collectible(C), 1 starting position(P), wall(1) (0 doesnt have to exist)
+- [ ] change wall splite 20:00-20:30
+
+- [ ] norm 20:30-21:30
+- [ ] read code thoroughly
+- [ ] submittion 22:30
