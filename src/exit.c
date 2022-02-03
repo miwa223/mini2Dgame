@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:27 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:35:28 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:12:54 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_mlx(t_data *data)
 {
 	if (data->free_type == MLX_WIN_IMG)
 	{
-		mlx_destroy_image(data->mlx, data->tail.img);
+		mlx_destroy_image(data->mlx, data->bg.img);
 		mlx_destroy_image(data->mlx, data->wall_img);
 		mlx_destroy_image(data->mlx, data->collect_img);
 		mlx_destroy_image(data->mlx, data->exit_img);

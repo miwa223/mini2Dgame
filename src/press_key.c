@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:52 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:59:33 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:12:54 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	display_images(t_data *data)
 		while (x < data->map.img_num.x * data->img_size.x)
 		{
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->tail.img, x, y);
-			x += data->tail.size.x;
+				data->bg.img, x, y);
+			x += data->bg.size.x;
 		}
 		x = 0;
-		y += data->tail.size.y;
+		y += data->bg.size.y;
 	}
 	put_sprites(data);
 	return (0);

@@ -17,12 +17,12 @@
 
 1/26W
 - [x] understand tasks
-- [x] get tail, sprites(hero, COLLECT, wall, exit)
-    - [x] try remove black tail behind sprites -> or set the same background color
+- [x] get bg, sprites(hero, COLLECT, wall, exit)
+    - [x] try remove black bg behind sprites -> or set the same background color
 
 1/27T
-- [x] display tail
-- [x] display wall around the tail
+- [x] display bg
+- [x] display wall around the bg
 - [x] validation - check argv[1] ".ber"
 - [x] arrange sprites to the place I want
 
@@ -39,7 +39,7 @@
 2/2W
 - [x] param validation 9:30-10:30
 - [x] window management(change to another window, minimizing)
-- [x] deal with tail size 10:30-12:00
+- [x] deal with bg size 10:30-12:00
 - [x] memory leaks (free mlx instance?) 16:00-17:00
 - [x] error handling (use strerror/perror)
     - [x] mlx's return 15:00-16:00

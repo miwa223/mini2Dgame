@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:51:48 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:12:36 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ typedef struct s_player{
 	int		move;
 }				t_player;
 
-typedef struct s_tail{
+typedef struct s_background{
 	void	*img;
 	t_xy	size;
-}				t_tail;
+}				t_background;
 
 typedef struct s_map{
 	char	*content;
@@ -75,7 +75,7 @@ typedef struct s_map{
 typedef struct s_data{
 	void		*mlx;
 	void		*mlx_win;
-	t_tail		tail;
+	t_background		bg;
 	void		*wall_img;
 	void		*collect_img;
 	void		*exit_img;

@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:34:59 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 11:04:10 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:15:43 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	count_img_num_on_xy_axis(t_map *map)
 
 void	convert_xpm_to_image(t_data *data)
 {
-	data->tail.img = mlx_xpm_file_to_image(data->mlx,
-			"images/tail.xpm", &data->tail.size.x, &data->tail.size.y);
+	data->bg.img = mlx_xpm_file_to_image(data->mlx,
+			"images/background.xpm", &data->bg.size.x, &data->bg.size.y);
 	data->wall_img = mlx_xpm_file_to_image(data->mlx,
 			"images/wall4.xpm", &data->img_size.x, &data->img_size.y);
 	data->collect_img = mlx_xpm_file_to_image(data->mlx,
@@ -69,7 +69,7 @@ void	convert_xpm_to_image(t_data *data)
 			"images/exit.xpm", &data->img_size.x, &data->img_size.y);
 	data->player.img = mlx_xpm_file_to_image(data->mlx,
 			"images/player.xpm", &data->img_size.x, &data->img_size.y);
-	if (!data->tail.img || !data->wall_img || !data->collect_img
+	if (!data->bg.img || !data->wall_img || !data->collect_img
 		|| !data->exit_img || !data->player.img)
 	{
 		free_mlx(data);
