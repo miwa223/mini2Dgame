@@ -1,6 +1,6 @@
 
 - [x] display move number in the shell at every move
-- [ ] window management(change to another window, minimizing)
+- [x] window management(change to another window, minimizing)
 - [x] use a 2D view(top-down or profile)
 - [x] display the image in a window
     - [x] W/A/S/D key
@@ -8,12 +8,12 @@
     - [x] red cross on the window can be used to close window and quit program
     - [x] use minilibx image
 - [x] receive map
-- [ ] map must be closed/surrounded by walls
-- [ ] no need to check if there is a valid path in the map
-- [ ] error validation
-    - [ ] map
+- [x] map must be closed/surrounded by walls
+- [x] no need to check if there is a valid path in the map
+- [x] error validation
+    - [x] map
     - [x] params
-- [ ] memory leak
+- [x] memory leak
 
 1/26W
 - [x] understand tasks
@@ -51,6 +51,10 @@
 - [x] norm 20:30-21:30
 
 2/3T
-- [ ] change wall splite
-- [ ] read code thoroughly
-- [ ] submittion
+- [ ] read code from beginning thoroughly 9-10
+    - [ ] check ERROR MACRO
+    - [ ] free before return/exit
+    - [ ] diff between var and func name
+- [ ] change wall(waving sea) splite 10-10.30
+- [ ] test
+- [ ] submittion 11.30
