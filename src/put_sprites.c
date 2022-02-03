@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:58 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:58:20 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:27:41 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	is_exit(t_data *data, int x, int y, int i)
 	{
 		if (x == data->player.pos.x && y == data->player.pos.y)
 		{
+			free(data->map.content);
 			free_mlx(data);
 			exit(EXIT_SUCCESS);
 		}
@@ -55,7 +56,7 @@ void	is_exit(t_data *data, int x, int y, int i)
 	}
 }
 
-void	is_start_position(t_data *data, int x, int y, int i)
+void	is_player(t_data *data, int x, int y, int i)
 {
 	if (data->map.content[i] == PLAYER)
 	{
@@ -84,7 +85,7 @@ void	put_sprites(t_data *data)
 		if (is_collectible_with_player(data, &x, y, &i))
 			continue ;
 		is_exit(data, x, y, i);
-		is_start_position(data, x, y, i);
+		is_player(data, x, y, i);
 		x += data->img_size.x;
 		i++;
 	}

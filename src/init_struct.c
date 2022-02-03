@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:34:59 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 11:15:43 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:20:46 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	convert_xpm_to_image(t_data *data)
 	if (!data->bg.img || !data->wall_img || !data->collect_img
 		|| !data->exit_img || !data->player.img)
 	{
+		free(data->map.content);
 		free_mlx(data);
 		exit_program(XPM_TO_IMG_FAIL);
 	}
@@ -87,12 +88,16 @@ void	init_struct(t_data *data, char **argv)
 	is_valid_map(&data->map);
 	data->mlx = mlx_init();
 	if (!data->mlx)
+	{
+		free(data->map.content);
 		exit_program(MLX_INIT_FAIL);
+	}
 	data->free_type = MLX;
 	data->mlx_win = mlx_new_window(data->mlx, data->map.img_num.x * 31,
 			data->map.img_num.y * 31, "so_long");
 	if (!data->mlx_win)
 	{
+		free(data->map.content);
 		free_mlx(data);
 		exit_program(MLX_NEW_WINDOW_FAIL);
 	}

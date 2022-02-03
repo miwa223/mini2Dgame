@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:29 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:37:30 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:54:12 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define FD_MAX 256
+# define FD_MAX 8192
 # define BUFFER_SIZE 16
 
 int		get_next_line(int fd, char **line);

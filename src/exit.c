@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:27 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 11:12:54 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:30:05 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	free_mlx(t_data *data)
 
 int	close_window(t_data *data)
 {
+	free(data->map.content);
 	free_mlx(data);
 	exit(EXIT_SUCCESS);
 }
@@ -46,6 +47,12 @@ void	exit_program(int error_type)
 		printf("Error\nXpm to image conversion failed\n");
 	else if (error_type == MALLOC_FAIL)
 		printf("Error\nMalloc failed\n");
+	else if (error_type == OPEN_FAIL)
+		printf("Error\nOpen failed\n");
+	else if (error_type == READ_FAIL)
+		printf("Error\nRead failed\n");
+	else if (error_type == CLOSE_FAIL)
+		printf("Error\nClose map\n");
 	else if (error_type == INVALID_MAP)
 		printf("Error\nInvalid map\n");
 	exit(EXIT_FAILURE);

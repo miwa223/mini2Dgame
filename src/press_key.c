@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:52 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 11:12:54 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:21:31 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	display_images(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (x < data->map.img_num.x * data->img_size.x && y < data->map.img_num.y * data->img_size.y)
+	while (x < data->map.img_num.x * data->img_size.x
+		&& y < data->map.img_num.y * data->img_size.y)
 	{
 		while (x < data->map.img_num.x * data->img_size.x)
 		{

@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 11:12:36 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:27:41 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_error{
 	MLX_NEW_WINDOW_FAIL,
 	XPM_TO_IMG_FAIL,
 	MALLOC_FAIL,
+	OPEN_FAIL,
 	READ_FAIL,
 	CLOSE_FAIL,
 	INVALID_MAP
@@ -73,16 +74,16 @@ typedef struct s_map{
 }				t_map;
 
 typedef struct s_data{
-	void		*mlx;
-	void		*mlx_win;
-	t_background		bg;
-	void		*wall_img;
-	void		*collect_img;
-	void		*exit_img;
-	t_player	player;
-	t_xy		img_size;
-	t_map		map;
-	int			free_type;
+	void			*mlx;
+	void			*mlx_win;
+	t_background	bg;
+	void			*wall_img;
+	void			*collect_img;
+	void			*exit_img;
+	t_player		player;
+	t_xy			img_size;
+	t_map			map;
+	int				free_type;
 }				t_data;
 
 void	is_valid_argv(int argc, char **argv);
@@ -104,7 +105,7 @@ int		press_key(int key, t_data *data);
 bool	is_newline(t_data *data, int *x, int *y, int *i);
 bool	is_collectible_with_player(t_data *data, int *x, int y, int *i);
 void	is_exit(t_data *data, int x, int y, int i);
-void	is_start_position(t_data *data, int x, int y, int i);
+void	is_player(t_data *data, int x, int y, int i);
 void	put_sprites(t_data *data);
 void	free_mlx(t_data *data);
 int		close_window(t_data *data);

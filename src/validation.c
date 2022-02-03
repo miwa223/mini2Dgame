@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:16 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:35:20 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:05:24 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	is_valid_argv(int argc, char **argv)
 		i++;
 	}
 	if (!str || ft_strlen(str) != 4
-		|| ft_strncmp(str, ".ber", ft_strlen(str)) != 0)
+		|| ft_strncmp(str, ".ber", 4) != 0)
 		exit_program(INVALID_ARG);
 }
 

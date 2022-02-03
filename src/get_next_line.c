@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:40 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 00:35:41 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:12:48 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	get_next_line(int fd, char **line)
 	*line = NULL;
 	buf = NULL;
 	if (fd < 0 || fd > FD_MAX || !line)
-		exit_program(INVALID_ARG);
+		exit_program(OPEN_FAIL);
 	if (search_newline(&save[fd], line) == 1)
 		return (1);
 	buf = (char *)malloc((size_t)BUFFER_SIZE + 1);
