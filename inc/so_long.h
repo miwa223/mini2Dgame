@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 12:27:41 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:11:27 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	get_map(char **map, int fd);
 void	read_map(char **argv, char **map);
 int		count_to_eof(t_map *map, int i);
 void	count_img_num_on_xy_axis(t_map *map);
+void	free_img(t_data *data, int flag);
 void	convert_xpm_to_image(t_data *data);
 void	init_struct(t_data *data, char **argv);
 int		display_images(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:34:59 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 12:20:46 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:12:32 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,43 @@ void	count_img_num_on_xy_axis(t_map *map)
 	}
 }
 
+void	free_img(t_data *data, int flag)
+{
+	if (flag == 5)
+		mlx_destroy_image(data->mlx, data->exit_img);
+	if (flag == 5 || flag == 4)
+		mlx_destroy_image(data->mlx, data->collect_img);
+	if (flag == 5 || flag == 4 || flag == 3)
+		mlx_destroy_image(data->mlx, data->wall_img);
+	if (flag == 5 || flag == 4 || flag == 3 || flag == 2)
+		mlx_destroy_image(data->mlx, data->bg.img);
+	free(data->map.content);
+	free_mlx(data);
+	exit_program(XPM_TO_IMG_FAIL);
+}
+
 void	convert_xpm_to_image(t_data *data)
 {
 	data->bg.img = mlx_xpm_file_to_image(data->mlx,
 			"images/background.xpm", &data->bg.size.x, &data->bg.size.y);
+	if (!data->bg.img)
+		free_img(data, 1);
 	data->wall_img = mlx_xpm_file_to_image(data->mlx,
 			"images/wall4.xpm", &data->img_size.x, &data->img_size.y);
+	if (!data->wall_img)
+		free_img(data, 2);
 	data->collect_img = mlx_xpm_file_to_image(data->mlx,
 			"images/collectible.xpm", &data->img_size.x, &data->img_size.y);
+	if (!data->collect_img)
+		free_img(data, 3);
 	data->exit_img = mlx_xpm_file_to_image(data->mlx,
 			"images/exit.xpm", &data->img_size.x, &data->img_size.y);
+	if (!data->exit_img)
+		free_img(data, 4);
 	data->player.img = mlx_xpm_file_to_image(data->mlx,
 			"images/player.xpm", &data->img_size.x, &data->img_size.y);
-	if (!data->bg.img || !data->wall_img || !data->collect_img
-		|| !data->exit_img || !data->player.img)
-	{
-		free(data->map.content);
-		free_mlx(data);
-		exit_program(XPM_TO_IMG_FAIL);
-	}
+	if (!data->player.img)
+		free_img(data, 5);
 }
 
 void	init_struct(t_data *data, char **argv)
