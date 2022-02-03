@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:34:59 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 01:07:01 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:04:10 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	convert_xpm_to_image(t_data *data)
 	data->tail.img = mlx_xpm_file_to_image(data->mlx,
 			"images/tail.xpm", &data->tail.size.x, &data->tail.size.y);
 	data->wall_img = mlx_xpm_file_to_image(data->mlx,
-			"images/wall.xpm", &data->img_size.x, &data->img_size.y);
+			"images/wall4.xpm", &data->img_size.x, &data->img_size.y);
 	data->collect_img = mlx_xpm_file_to_image(data->mlx,
 			"images/collectible.xpm", &data->img_size.x, &data->img_size.y);
 	data->exit_img = mlx_xpm_file_to_image(data->mlx,

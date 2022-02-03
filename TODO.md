@@ -55,6 +55,6 @@
     - [ ] check ERROR MACRO
     - [ ] free before return/exit
     - [ ] diff between var and func name
-- [ ] change wall(waving sea) splite 10-10.30
+- [x] change wall(waving sea) splite 10-10.30
 - [ ] test
 - [ ] submittion 11.30
