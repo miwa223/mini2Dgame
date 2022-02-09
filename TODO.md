@@ -51,10 +51,10 @@
 - [x] norm 20:30-21:30
 
 2/3T
-- [ ] read code from beginning thoroughly 9-10
-    - [ ] check ERROR MACRO
-    - [ ] free before return/exit
-    - [ ] diff between var and func name
+- [x] read code from beginning thoroughly 9-10
+    - [x] check ERROR MACRO
+    - [x] free before return/exit
+    - [x] diff between var and func name
 - [x] change wall(waving sea) splite 10-10.30
-- [ ] test
-- [ ] submittion 11.30
+- [x] test
+- [x] submittion 11.30

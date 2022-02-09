@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:58 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 12:27:41 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:03:59 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ bool	is_collectible_with_player(t_data *data, int *x, int y, int *i)
 			data->map.content[*i] = '0';
 			(*i)++;
 			*x += data->img_size.x;
+			data->collect.count++;
 			return (true);
 		}
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->collect_img,
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->collect.img,
 			*x, y);
 	}
 	return (false);
@@ -45,7 +46,8 @@ void	is_exit(t_data *data, int x, int y, int i)
 {
 	if (data->map.content[i] == EXIT)
 	{
-		if (x == data->player.pos.x && y == data->player.pos.y)
+		if (x == data->player.pos.x && y == data->player.pos.y
+			&& data->collect.count == data->collect.total_num)
 		{
 			free(data->map.content);
 			free_mlx(data);
@@ -60,8 +62,14 @@ void	is_player(t_data *data, int x, int y, int i)
 {
 	if (data->map.content[i] == PLAYER)
 	{
-		data->player.pos.x = x;
-		data->player.pos.y = y;
+		if (!data->player.set_done)
+		{
+			data->player.pos.x = x;
+			data->player.pos.y = y;
+			mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->player.img, x, y);
+			data->player.set_done = true;
+		}
 		data->map.content[i] = '0';
 	}
 }

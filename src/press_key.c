@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:52 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 12:21:31 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:05:45 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	judge_by_key(t_data *data, int key, int x, int y)
 	return (false);
 }
 
-bool	move_to_wall(t_data *data, int key)
+bool	move_to_wall_exit(t_data *data, int key)
 {
 	int	x;
 	int	y;
@@ -67,6 +67,9 @@ bool	move_to_wall(t_data *data, int key)
 			continue ;
 		if (data->map.content[i] == WALL && judge_by_key(data, key, x, y))
 			return (true);
+		if (data->map.content[i] == EXIT && judge_by_key(data, key, x, y)
+			&& data->collect.count != data->collect.total_num)
+			return (true);
 		x += data->img_size.x;
 		i++;
 	}
@@ -78,7 +81,7 @@ int	press_key(int key, t_data *data)
 	if (key == ESC)
 		close_window(data);
 	if ((key == A || key == S || key == D || key == W)
-		&& move_to_wall(data, key))
+		&& move_to_wall_exit(data, key))
 		return (0);
 	if (key == A)
 		data->player.pos.x -= data->img_size.x;

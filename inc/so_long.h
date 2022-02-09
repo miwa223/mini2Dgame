@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:37:04 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 13:11:27 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:07:16 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,23 @@ typedef struct s_xy{
 	int	x;
 	int	y;
 }				t_xy;
+typedef struct s_background{
+	void	*img;
+	t_xy	size;
+}				t_background;
+
+typedef struct s_collectible{
+	void	*img;
+	int		total_num;
+	int		count;
+}				t_collectible;
 
 typedef struct s_player{
 	void	*img;
 	t_xy	pos;
 	int		move;
+	bool	set_done;
 }				t_player;
-
-typedef struct s_background{
-	void	*img;
-	t_xy	size;
-}				t_background;
 
 typedef struct s_map{
 	char	*content;
@@ -78,7 +84,7 @@ typedef struct s_data{
 	void			*mlx_win;
 	t_background	bg;
 	void			*wall_img;
-	void			*collect_img;
+	t_collectible	collect;
 	void			*exit_img;
 	t_player		player;
 	t_xy			img_size;
@@ -93,7 +99,7 @@ bool	count_line(t_map *map, int i, int *line_num, bool is_last);
 void	is_valid_map(t_map *map);
 bool	concat_map(char **map, char *line, bool first_time);
 void	get_map(char **map, int fd);
-void	read_map(char **argv, char **map);
+void	set_map_info(char **argv, t_data *data);
 int		count_to_eof(t_map *map, int i);
 void	count_img_num_on_xy_axis(t_map *map);
 void	free_img(t_data *data, int flag);
@@ -101,7 +107,7 @@ void	convert_xpm_to_image(t_data *data);
 void	init_struct(t_data *data, char **argv);
 int		display_images(t_data *data);
 bool	judge_by_key(t_data *data, int key, int x, int y);
-bool	move_to_wall(t_data *data, int key);
+bool	move_to_wall_exit(t_data *data, int key);
 int		press_key(int key, t_data *data);
 bool	is_newline(t_data *data, int *x, int *y, int *i);
 bool	is_collectible_with_player(t_data *data, int *x, int y, int *i);
