@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:27 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 19:07:41 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:47:31 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ int	close_window(t_data *data)
 void	exit_program(int error_type)
 {
 	if (error_type == INVALID_ARG)
-		printf("Error\nInvalid arguments\n");
+		ft_putstr_fd("Error\nInvalid arguments\n", 2);
 	else if (error_type == MLX_INIT_FAIL)
-		printf("Error\nMlx initialization failed\n");
+		ft_putstr_fd("Error\nMlx initialization failed\n", 2);
 	else if (error_type == MLX_NEW_WINDOW_FAIL)
-		printf("Error\nMlx window creation failed\n");
+		ft_putstr_fd("Error\nMlx window creation failed\n", 2);
 	else if (error_type == XPM_TO_IMG_FAIL)
-		printf("Error\nXpm to image conversion failed\n");
+		ft_putstr_fd("Error\nXpm to image conversion failed\n", 2);
 	else if (error_type == MALLOC_FAIL)
-		printf("Error\nMalloc failed\n");
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
 	else if (error_type == OPEN_FAIL)
-		printf("Error\nOpen failed\n");
+		ft_putstr_fd("Error\nOpen failed\n", 2);
 	else if (error_type == READ_FAIL)
-		printf("Error\nRead failed\n");
+		ft_putstr_fd("Error\nRead failed\n", 2);
 	else if (error_type == CLOSE_FAIL)
-		printf("Error\nClose map\n");
+		ft_putstr_fd("Error\nClose map\n", 2);
 	else if (error_type == INVALID_MAP)
-		printf("Error\nInvalid map\n");
+		ft_putstr_fd("Error\nInvalid map\n", 2);
 	exit(EXIT_FAILURE);
 }

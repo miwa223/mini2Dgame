@@ -6,7 +6,7 @@
 /*   By: mmasubuc <mmasubuc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 00:35:52 by mmasubuc          #+#    #+#             */
-/*   Updated: 2022/02/03 20:05:45 by mmasubuc         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:50:42 by mmasubuc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	press_key(int key, t_data *data)
 	if (key == A || key == S || key == D || key == W)
 	{
 		data->player.move += 1;
-		printf("The current number of movements: %d\n", data->player.move);
+		ft_putstr_fd("The current number of movements: ", 1);
+		ft_putnbr_fd(data->player.move, 1);
+		ft_putchar_fd('\n', 1);
 	}
 	display_images(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->player.img,
