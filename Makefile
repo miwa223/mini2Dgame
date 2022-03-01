@@ -8,17 +8,24 @@ DEPENDS = $(OBJS:%.o=%.d)
 LIBFT_DIR = libft/
 LIBFT_LIB = libft.a
 MINILIBX_DIR = mlx/
-MINILIBX_LIB = libmlx_Linux.a
+# MINILIBX_LIB = libmlx_Linux.a
+MINILIBX_LIB = libmlx_Darwin.a
 
 all: $(NAME)
 
+# $(NAME): $(OBJS)
+# 	make -C $(MINILIBX_DIR)
+# 	make -C $(LIBFT_DIR)
+# 	$(CC) $(CFLAGS) $(OBJS) -L. $(LIBFT_DIR)$(LIBFT_LIB) -L. $(MINILIBX_DIR)$(MINILIBX_LIB) -Imlx -lXext -lX11 -o $@
 $(NAME): $(OBJS)
 	make -C $(MINILIBX_DIR)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -L. $(LIBFT_DIR)$(LIBFT_LIB) -L. $(MINILIBX_DIR)$(MINILIBX_LIB) -Imlx -lXext -lX11 -o $@
+	$(CC) $(OBJS) -L. $(LIBFT_DIR)$(LIBFT_LIB) -L. $(MINILIBX_DIR)$(MINILIBX_LIB) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+# .c.o:
+# 	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 clean:
 	make clean -C $(MINILIBX_DIR)
